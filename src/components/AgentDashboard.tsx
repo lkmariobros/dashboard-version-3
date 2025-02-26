@@ -113,6 +113,59 @@ const AgentDashboard = () => {
       {/* Main Content */}
       <div className="p-3 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 auto-rows-min">
         
+        {/* Summary Stats - Moved to top */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+          <Card className="bg-black border-slate-800 shadow-lg">
+            <CardContent className="pt-4">
+              <div className="text-slate-400 text-xs mb-1">Total Revenue</div>
+              <div className="text-2xl font-bold animate-fade-in">$498,250</div>
+              <div className="text-green-400 text-xs flex items-center">
+                <TrendingUp size={10} className="mr-1" />
+                15% vs last year
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-black border-slate-800 shadow-lg">
+            <CardContent className="pt-4">
+              <div className="text-slate-400 text-xs mb-1">Avg. Transaction</div>
+              <div className="text-2xl font-bold animate-fade-in">$849,600</div>
+              <div className="text-green-400 text-xs flex items-center">
+                <TrendingUp size={10} className="mr-1" />
+                8% vs last year
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-black border-slate-800 shadow-lg">
+            <CardContent className="pt-4">
+              <div className="text-slate-400 text-xs mb-1">Total Properties</div>
+              <div className="text-2xl font-bold animate-fade-in">11</div>
+              <div className="flex text-xs mt-1">
+                <div className="mr-3 flex items-center">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
+                  <span>4 Sold</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
+                  <span>7 Rented</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-black border-slate-800 shadow-lg">
+            <CardContent className="pt-4">
+              <div className="text-slate-400 text-xs mb-1">Team Ranking</div>
+              <div className="text-2xl font-bold animate-fade-in">#2</div>
+              <div className="text-yellow-400 text-xs flex items-center">
+                <Award size={10} className="mr-1" />
+                Top 10% nationwide
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
         {/* Sales Transaction Progress Card */}
         <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4 lg:row-span-2">
           <CardHeader className="pb-2">
@@ -314,59 +367,6 @@ const AgentDashboard = () => {
             </div>
           </CardContent>
         </Card>
-        
-        {/* Summary Stats */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Total Revenue</div>
-              <div className="text-2xl font-bold animate-fade-in">$498,250</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                15% vs last year
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Avg. Transaction</div>
-              <div className="text-2xl font-bold animate-fade-in">$849,600</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                8% vs last year
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Total Properties</div>
-              <div className="text-2xl font-bold animate-fade-in">11</div>
-              <div className="flex text-xs mt-1">
-                <div className="mr-3 flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
-                  <span>4 Sold</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
-                  <span>7 Rented</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Team Ranking</div>
-              <div className="text-2xl font-bold animate-fade-in">#2</div>
-              <div className="text-yellow-400 text-xs flex items-center">
-                <Award size={10} className="mr-1" />
-                Top 10% nationwide
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
