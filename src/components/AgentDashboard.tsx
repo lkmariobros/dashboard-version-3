@@ -11,8 +11,7 @@ import {
   Bell, 
   Menu, 
   User, 
-  Award, 
-  BarChart 
+  Award
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,12 +23,10 @@ const AgentDashboard = () => {
   // Animation states for progress indicators
   const [salesProgress, setSalesProgress] = useState(0);
   const [commissionProgress, setCommissionProgress] = useState(0);
-  const [monthlyProgress, setMonthlyProgress] = useState(0);
   
   // Sample data
   const salesTarget = 66;
   const commissionTarget = 78;
-  const monthlyTarget = 42;
   
   const upcomingCommissions = [
     { property: "123 Main St Condo", date: "Mar 3", amount: 4250 },
@@ -59,12 +56,10 @@ const AgentDashboard = () => {
     
     const salesInterval = animateProgress(setSalesProgress, salesTarget);
     const commissionInterval = animateProgress(setCommissionProgress, commissionTarget, 15);
-    const monthlyInterval = animateProgress(setMonthlyProgress, monthlyTarget, 25);
     
     return () => {
       clearInterval(salesInterval);
       clearInterval(commissionInterval);
-      clearInterval(monthlyInterval);
     };
   }, []);
   
@@ -239,61 +234,6 @@ const AgentDashboard = () => {
               <div>
                 <div className="text-slate-400">Target</div>
                 <div className="font-semibold">$120K</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        {/* Monthly Performance Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
-          <CardHeader className="pb-2">
-            <div className="flex justify-between items-center">
-              <CardTitle className="text-sm font-semibold">Monthly Performance</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                <MoreHorizontal className="h-5 w-5" />
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="text-2xl font-bold animate-fade-in">
-                {monthlyProgress}%
-              </div>
-              
-              <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
-                <TrendingUp className="text-white mr-1" size={12} />
-                <span className="text-xs">8%</span>
-              </div>
-            </div>
-            
-            <div className="flex">
-              {renderSegments(monthlyProgress, 100)}
-            </div>
-            
-            <div className="flex justify-between items-center text-xs mt-1">
-              <div className="flex flex-col items-center">
-                <div className="text-slate-400">Jan</div>
-                <div className="h-10 w-4 bg-slate-800/50 mt-1 rounded-sm relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-blue-500 h-4"></div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-slate-400">Feb</div>
-                <div className="h-10 w-4 bg-slate-800/50 mt-1 rounded-sm relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-blue-500 h-6"></div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-slate-400">Mar</div>
-                <div className="h-10 w-4 bg-slate-800/50 mt-1 rounded-sm relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-blue-500 h-7"></div>
-                </div>
-              </div>
-              <div className="flex flex-col items-center">
-                <div className="text-slate-400">Apr</div>
-                <div className="h-10 w-4 bg-slate-800/50 mt-1 rounded-sm relative overflow-hidden">
-                  <div className="absolute bottom-0 w-full bg-green-500 h-10"></div>
-                </div>
               </div>
             </div>
           </CardContent>
