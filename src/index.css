@@ -245,7 +245,7 @@
 .grid-dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
@@ -278,7 +278,7 @@
 
 .yearly-sales { 
   grid-area: yearly-sales;
-  height: auto;
+  height: 450px; /* Ensure consistent height for yearly sales */
 }
 
 .commission-claims { 
@@ -299,12 +299,13 @@
 
 /* Add custom height for the Upcoming Appointments specifically to fill the gap */
 .upcoming-appointments .upcoming-appointments-card {
-  min-height: 280px; /* Adjusted height for the new position */
+  min-height: 330px; /* Increased height to extend downward */
 }
 
 .recent-activity { 
   grid-area: recent-activity;
   height: 100%;
+  margin-top: 0; /* Ensure recent activity sits properly below */
 }
 
 /* Recent activity custom styling */
