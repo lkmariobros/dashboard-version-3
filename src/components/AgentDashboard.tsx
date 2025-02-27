@@ -194,8 +194,9 @@ const AgentDashboard = () => {
       {/* Main Content */}
       <div className="p-3 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 auto-rows-min">
         
-        {/* Summary Stats - Moved to top */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Summary Stats - Rearranged into a 2x2 grid */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-3">
+          {/* Top row: Total Revenue and Avg. Transaction */}
           <Card className="bg-black border-slate-800 shadow-lg">
             <CardContent className="pt-4">
               <div className="text-slate-400 text-xs mb-1">Total Revenue</div>
@@ -218,6 +219,7 @@ const AgentDashboard = () => {
             </CardContent>
           </Card>
           
+          {/* Bottom row: Total Properties and Team Ranking */}
           <Card className="bg-black border-slate-800 shadow-lg">
             <CardContent className="pt-4">
               <div className="text-slate-400 text-xs mb-1">Total Properties</div>
@@ -274,7 +276,7 @@ const AgentDashboard = () => {
           </CardContent>
         </Card>
         
-        {/* Recent Activity Card - Now in a smaller column */}
+        {/* Recent Activity Card */}
         <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
