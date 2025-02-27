@@ -316,7 +316,7 @@ const AgentDashboard = () => {
           </div>
           
           {/* Yearly Sales Chart Card - Now positioned above the other cards */}
-          <Card className="sales-chart-card bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12 mb-4">
+          <Card className="sales-chart-card bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12">
             <CardHeader className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-lg font-semibold">Yearly Sales Transactions</CardTitle>
@@ -342,7 +342,55 @@ const AgentDashboard = () => {
             </CardContent>
           </Card>
           
-          {/* Bottom Row with Appointments and Sales Transaction */}
+          {/* Recent Activity Card - Moved up to follow the arrow */}
+          <div className="col-span-12 lg:col-span-8 mb-4">
+            <Card className="activity-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+              <CardHeader className="p-4 pb-2">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4 pt-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {recentActivity.map((activity, index) => (
+                    <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
+                      <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
+                        <AvatarFallback className="text-[10px]">
+                          {activity.agent.split(' ').map(name => name[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 text-sm">
+                        <div className="font-medium">{activity.agent}</div>
+                        <div className="text-slate-400 mt-0.5">
+                          <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                            {activity.action}
+                          </span>
+                          {" "}{activity.property} • {activity.value}
+                        </div>
+                      </div>
+                      <div className="text-slate-400 text-xs">{activity.time}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-3">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
+                    onClick={() => setShowMoreActivity(true)}
+                  >
+                    View all activity
+                    <ChevronDown size={14} className="ml-2" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Right Column with Appointments and Sales Transaction */}
           <div className="col-span-12 lg:col-span-4 space-y-4">
             {/* Upcoming Appointments Card */}
             <Card className="appointments-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
@@ -393,54 +441,6 @@ const AgentDashboard = () => {
                 </div>
                 
                 {renderSegments(salesProgress, 100)}
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Recent Activity Card - Leaving it at the bottom */}
-          <div className="col-span-12 lg:col-span-8">
-            <Card className="activity-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <CardHeader className="p-4 pb-2">
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {recentActivity.map((activity, index) => (
-                    <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
-                      <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
-                        <AvatarFallback className="text-[10px]">
-                          {activity.agent.split(' ').map(name => name[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 text-sm">
-                        <div className="font-medium">{activity.agent}</div>
-                        <div className="text-slate-400 mt-0.5">
-                          <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                            {activity.action}
-                          </span>
-                          {" "}{activity.property} • {activity.value}
-                        </div>
-                      </div>
-                      <div className="text-slate-400 text-xs">{activity.time}</div>
-                    </div>
-                  ))}
-                </div>
-                <div className="pt-3">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
-                    onClick={() => setShowMoreActivity(true)}
-                  >
-                    View all activity
-                    <ChevronDown size={14} className="ml-2" />
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           </div>
