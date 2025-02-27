@@ -249,7 +249,7 @@
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
-    "yearly-sales yearly-sales yearly-sales upcoming-appointments"
+    "yearly-sales yearly-sales yearly-sales sales-transaction"
     "recent-activity recent-activity recent-activity upcoming-appointments";
   gap: 20px;
   padding: 4px;
@@ -285,10 +285,13 @@
   height: 100%;
 }
 
-/* Removed sales-transaction styles since it's no longer in the grid */
+.sales-transaction { 
+  grid-area: sales-transaction;
+  max-height: 130px;
+}
 
 .upcoming-appointments { 
-  grid-area: upcoming-appointments; 
+  grid-area: upcoming-appointments;
   height: 100%;
 }
 

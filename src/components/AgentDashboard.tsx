@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   MoreHorizontal, 
@@ -359,7 +358,26 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Sales Transaction card has been removed */}
+            {/* Sales Transaction */}
+            <div className="sales-transaction">
+              <div className="dashboard-card">
+                <div className="p-4">
+                  <div className="flex justify-between items-center">
+                    <div className="text-base font-semibold">Sales Transaction</div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="mt-2">
+                    <div className="flex items-center justify-between">
+                      <div className="text-sm text-slate-400">Monthly Goal</div>
+                      <div className="text-sm font-medium">{salesProgress}%</div>
+                    </div>
+                    {renderSegments(salesProgress, 100)}
+                  </div>
+                </div>
+              </div>
+            </div>
             
             {/* Recent Activity */}
             <div className="recent-activity">
@@ -411,7 +429,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Upcoming Appointments - Now spans two rows */}
+            {/* Upcoming Appointments */}
             <div className="upcoming-appointments">
               <UpcomingAppointmentsCard />
             </div>
