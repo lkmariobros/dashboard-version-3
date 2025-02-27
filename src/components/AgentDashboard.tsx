@@ -39,6 +39,16 @@ const AgentDashboard = () => {
   // Sample data
   const salesTarget = 66;
   const commissionTarget = 78;
+  const userName = "John";
+  const currentHour = new Date().getHours();
+  
+  // Determine greeting based on time of day
+  let greeting = "Good morning";
+  if (currentHour >= 12 && currentHour < 17) {
+    greeting = "Good afternoon";
+  } else if (currentHour >= 17) {
+    greeting = "Good evening";
+  }
   
   const recentActivity = [
     { agent: "Sarah Lee", action: "Sold", property: "Parkview Heights", value: "$1.2M", time: "2h" },
@@ -259,8 +269,16 @@ const AgentDashboard = () => {
         {/* Dashboard Content - Using CSS Grid with Fixed Areas */}
         <div className="p-4 h-[calc(100vh-4rem)] overflow-auto">
           <div className="grid-dashboard">
-            {/* Top Metrics Row */}
-            <div className="top-metrics">
+            {/* Welcome Message */}
+            <div className="welcome">
+              <div className="welcome-message">
+                <h2>{greeting}, {userName}</h2>
+                <p>How's your day going?</p>
+              </div>
+            </div>
+            
+            {/* Top Metrics Row - Now moved below welcome */}
+            <div className="metrics">
               <div className="grid grid-cols-3 gap-4 h-full">
                 {/* Total Revenue */}
                 <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">

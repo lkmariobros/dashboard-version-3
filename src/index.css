@@ -121,13 +121,38 @@
   height: 100%;
 }
 
+/* Welcome message styles */
+.welcome-message {
+  background: linear-gradient(145deg, #1a1f2c, #232b3d);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+}
+
+.welcome-message h2 {
+  background: linear-gradient(90deg, #ffffff, #d6bcfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.welcome-message p {
+  color: #8A898C;
+  font-size: 1.125rem;
+}
+
 /* Dashboard Grid Layout */
 .grid-dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
-    "top-metrics top-metrics top-metrics commission-claims"
+    "welcome welcome welcome commission-claims"
+    "metrics metrics metrics commission-claims"
     "yearly-sales yearly-sales yearly-sales sales-transaction"
     "yearly-sales yearly-sales yearly-sales upcoming-appointments"
     "recent-activity recent-activity recent-activity recent-activity";
@@ -135,8 +160,13 @@
   height: calc(100% - 16px);
 }
 
-.top-metrics { 
-  grid-area: top-metrics; 
+.welcome { 
+  grid-area: welcome;
+  min-height: 90px;
+}
+
+.metrics { 
+  grid-area: metrics; 
   height: 100px;
 }
 
@@ -147,7 +177,7 @@
 
 .commission-claims { 
   grid-area: commission-claims; 
-  min-height: 100px;
+  min-height: 235px;
 }
 
 .sales-transaction { 
