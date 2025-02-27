@@ -265,184 +265,188 @@ const AgentDashboard = () => {
         
         {/* Dashboard Content */}
         <div className="p-4 grid grid-cols-12 gap-4">
-          {/* Top Stats - Three cards in a row */}
-          <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
-            {/* Total Revenue - Smaller card size */}
-            <Card className="revenue-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
-              <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
-                <div className="text-slate-400 text-xs">Total Revenue</div>
-                <div className="text-2xl font-bold animate-fade-in">$498,250</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
-                  15% vs last year
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Avg Transaction - Smaller card size */}
-            <Card className="transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
-              <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
-                <div className="text-slate-400 text-xs">Avg. Transaction</div>
-                <div className="text-2xl font-bold animate-fade-in">$849,600</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
-                  8% vs last year
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Total Properties - Smaller card size */}
-            <Card className="properties-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
-              <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
-                <div className="text-slate-400 text-xs">Total Properties</div>
-                <div className="text-2xl font-bold animate-fade-in">114</div>
-                <div className="flex text-xs gap-2">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
-                    <span className="text-blue-400">37 Sold</span>
+          <div className="col-span-12 grid grid-cols-12 gap-4">
+            {/* Top Stats - Left side */}
+            <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
+              {/* Total Revenue - Smaller card size */}
+              <Card className="revenue-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
+                <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
+                  <div className="text-slate-400 text-xs">Total Revenue</div>
+                  <div className="text-2xl font-bold animate-fade-in">$498,250</div>
+                  <div className="text-green-400 text-xs flex items-center">
+                    <TrendingUp size={12} className="mr-1" />
+                    15% vs last year
                   </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
-                    <span className="text-purple-400">77 Rented</span>
+                </CardContent>
+              </Card>
+              
+              {/* Avg Transaction - Smaller card size */}
+              <Card className="transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
+                <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
+                  <div className="text-slate-400 text-xs">Avg. Transaction</div>
+                  <div className="text-2xl font-bold animate-fade-in">$849,600</div>
+                  <div className="text-green-400 text-xs flex items-center">
+                    <TrendingUp size={12} className="mr-1" />
+                    8% vs last year
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Commission Claims Card - Now using independent component */}
-          <div className="col-span-12 lg:col-span-4">
-            <CommissionClaimsCard progress={commissionProgress} />
-          </div>
-          
-          {/* Yearly Sales Chart Card - Now positioned above the other cards */}
-          <Card className="sales-chart-card bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12">
-            <CardHeader className="p-4 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-lg font-semibold">Yearly Sales Transactions</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="text-sm text-slate-400">
-                Monthly performance for 2023
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 pt-3">
-              <LineChartPulse data={yearlySalesData} height="h-56" />
-              <div className="flex justify-between text-sm pt-2">
-                <div className="flex items-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
-                  <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
-                </div>
-                <div className="text-green-400 font-medium">
-                  +23% from previous year
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Recent Activity Card - Moved up to follow the arrow */}
-          <div className="col-span-12 lg:col-span-8 mb-4">
-            <Card className="activity-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <CardHeader className="p-4 pb-2">
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {recentActivity.map((activity, index) => (
-                    <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
-                      <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
-                        <AvatarFallback className="text-[10px]">
-                          {activity.agent.split(' ').map(name => name[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 text-sm">
-                        <div className="font-medium">{activity.agent}</div>
-                        <div className="text-slate-400 mt-0.5">
-                          <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                            {activity.action}
-                          </span>
-                          {" "}{activity.property} • {activity.value}
-                        </div>
-                      </div>
-                      <div className="text-slate-400 text-xs">{activity.time}</div>
+                </CardContent>
+              </Card>
+              
+              {/* Total Properties - Smaller card size */}
+              <Card className="properties-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
+                <CardContent className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
+                  <div className="text-slate-400 text-xs">Total Properties</div>
+                  <div className="text-2xl font-bold animate-fade-in">114</div>
+                  <div className="flex text-xs gap-2">
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
+                      <span className="text-blue-400">37 Sold</span>
                     </div>
-                  ))}
-                </div>
-                <div className="pt-3">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
-                    onClick={() => setShowMoreActivity(true)}
-                  >
-                    View all activity
-                    <ChevronDown size={14} className="ml-2" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Right Column with Appointments and Sales Transaction */}
-          <div className="col-span-12 lg:col-span-4 space-y-4">
-            {/* Upcoming Appointments Card */}
-            <Card className="appointments-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <CardHeader className="p-4 pb-0">
-                <CardTitle className="text-lg font-semibold">Upcoming Appointments</CardTitle>
-              </CardHeader>
-              <CardContent className="p-4 pt-2 text-sm">
-                <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
-                  <Calendar size={14} className="text-blue-400 mr-2" />
-                  <div>
-                    <div className="font-medium">Property Viewing</div>
-                    <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
+                    <div className="flex items-center">
+                      <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
+                      <span className="text-purple-400">77 Rented</span>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-center border-l-2 border-green-500 pl-3">
-                  <Users size={14} className="text-green-400 mr-2" />
-                  <div>
-                    <div className="font-medium">Client Meeting</div>
-                    <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
             
-            {/* Sales Transaction */}
-            <Card className="sales-transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <CardHeader className="p-4 pb-0">
-                <div className="flex justify-between items-center">
-                  <CardTitle className="text-base font-semibold">Sales Transaction</CardTitle>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </div>
-                <p className="text-slate-400 text-sm">
-                  On track to finish early
-                </p>
-              </CardHeader>
-              <CardContent className="p-4 pt-2">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-xl font-bold animate-fade-in">
-                    {salesProgress}%
+            {/* Commission Claims Card - Right side */}
+            <div className="col-span-12 lg:col-span-4">
+              <CommissionClaimsCard progress={commissionProgress} />
+            </div>
+            
+            {/* Yearly Sales Chart Card - Directly below top metrics with no gap */}
+            <div className="col-span-12 lg:col-span-8 mt-0">
+              <Card className="sales-chart-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+                <CardHeader className="p-4 pb-0">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-lg font-semibold">Yearly Sales Transactions</CardTitle>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
                   </div>
-                  <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    30%
+                  <div className="text-sm text-slate-400">
+                    Monthly performance for 2023
                   </div>
-                </div>
-                
-                {renderSegments(salesProgress, 100)}
-              </CardContent>
-            </Card>
+                </CardHeader>
+                <CardContent className="p-4 pt-3">
+                  <LineChartPulse data={yearlySalesData} height="h-52" />
+                  <div className="flex justify-between text-sm pt-2">
+                    <div className="flex items-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
+                      <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
+                    </div>
+                    <div className="text-green-400 font-medium">
+                      +23% from previous year
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Recent Activity Card - Next to yearly sales transactions */}
+            <div className="col-span-12 lg:col-span-8">
+              <Card className="activity-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+                <CardHeader className="p-4 pb-2">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4 pt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {recentActivity.map((activity, index) => (
+                      <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
+                        <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
+                          <AvatarFallback className="text-[10px]">
+                            {activity.agent.split(' ').map(name => name[0]).join('')}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 text-sm">
+                          <div className="font-medium">{activity.agent}</div>
+                          <div className="text-slate-400 mt-0.5">
+                            <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                              {activity.action}
+                            </span>
+                            {" "}{activity.property} • {activity.value}
+                          </div>
+                        </div>
+                        <div className="text-slate-400 text-xs">{activity.time}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="pt-3">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
+                      onClick={() => setShowMoreActivity(true)}
+                    >
+                      View all activity
+                      <ChevronDown size={14} className="ml-2" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            
+            {/* Right Column with Appointments and Sales Transaction */}
+            <div className="col-span-12 lg:col-span-4 space-y-4">
+              {/* Upcoming Appointments Card */}
+              <Card className="appointments-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+                <CardHeader className="p-4 pb-0">
+                  <CardTitle className="text-lg font-semibold">Upcoming Appointments</CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-2 text-sm">
+                  <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
+                    <Calendar size={14} className="text-blue-400 mr-2" />
+                    <div>
+                      <div className="font-medium">Property Viewing</div>
+                      <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center border-l-2 border-green-500 pl-3">
+                    <Users size={14} className="text-green-400 mr-2" />
+                    <div>
+                      <div className="font-medium">Client Meeting</div>
+                      <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* Sales Transaction */}
+              <Card className="sales-transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+                <CardHeader className="p-4 pb-0">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-base font-semibold">Sales Transaction</CardTitle>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    On track to finish early
+                  </p>
+                </CardHeader>
+                <CardContent className="p-4 pt-2">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="text-xl font-bold animate-fade-in">
+                      {salesProgress}%
+                    </div>
+                    <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      30%
+                    </div>
+                  </div>
+                  
+                  {renderSegments(salesProgress, 100)}
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
