@@ -245,12 +245,13 @@
 .grid-dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto auto 350px;
+  grid-template-rows: auto auto auto auto;
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
     "yearly-sales yearly-sales yearly-sales sales-transaction"
-    "recent-activity recent-activity recent-activity upcoming-appointments";
+    "yearly-sales yearly-sales yearly-sales upcoming-appointments"
+    "recent-activity recent-activity recent-activity recent-activity";
   gap: 20px;
   padding: 4px;
 }
@@ -292,12 +293,13 @@
 
 .upcoming-appointments { 
   grid-area: upcoming-appointments;
-  height: 100%;
+  height: auto;
+  margin-top: -10px; /* Add negative margin to move it upward closer to sales-transaction */
 }
 
 /* Add custom height for the Upcoming Appointments specifically to fill the gap */
 .upcoming-appointments .upcoming-appointments-card {
-  min-height: 480px; /* Increased height to fill the vertical gap shown in the image */
+  min-height: 280px; /* Adjusted height for the new position */
 }
 
 .recent-activity { 
