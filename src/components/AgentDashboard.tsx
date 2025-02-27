@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   MoreHorizontal, 
@@ -278,7 +277,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Top Metrics Row - Now moved below welcome */}
+            {/* Top Metrics Row */}
             <div className="metrics">
               <div className="grid grid-cols-3 gap-6 h-full">
                 {/* Total Revenue */}
@@ -390,7 +389,7 @@ const AgentDashboard = () => {
             </div>
             
             {/* Right Column - Upcoming Appointments */}
-            <div className="upcoming-appointments">
+            <div className="upcoming-appointments" style={{ height: "auto" }}>
               <UpcomingAppointmentsCard />
             </div>
             
