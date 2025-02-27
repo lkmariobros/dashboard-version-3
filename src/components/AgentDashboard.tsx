@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   MoreHorizontal, 
@@ -324,7 +325,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Right Column - Commission Claims */}
+            {/* Commission Claims */}
             <div className="commission-claims">
               <CommissionClaimsCard progress={commissionProgress} />
             </div>
@@ -358,7 +359,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Right Column - Sales Transaction */}
+            {/* Sales Transaction */}
             <div className="sales-transaction">
               <div className="dashboard-card h-full">
                 <div className="p-4 pb-0">
@@ -388,7 +389,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Recent Activity Section */}
+            {/* Recent Activity */}
             <div className="recent-activity">
               <div className="dashboard-card h-full">
                 <div className="p-4 pb-2 border-b border-slate-800">
@@ -438,7 +439,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Right Column - Upcoming Appointments */}
+            {/* Upcoming Appointments */}
             <div className="upcoming-appointments">
               <UpcomingAppointmentsCard />
             </div>
