@@ -14,12 +14,15 @@ import {
   Award,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
   X,
   LineChart,
   Plus,
   BarChart3,
   Settings,
-  LogOut
+  LogOut,
+  ArrowRight,
+  ArrowLeft
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,10 +37,39 @@ const AgentDashboard = () => {
   const [commissionProgress, setCommissionProgress] = useState(0);
   const [showMoreActivity, setShowMoreActivity] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState("August, 2023");
   
   // Sample data
   const salesTarget = 66;
   const commissionTarget = 78;
+  
+  // Properties data
+  const propertyListings = [
+    { 
+      title: "Luxury Penthouse", 
+      type: "For Sale",
+      lessons: "12 Viewings", 
+      rate: 4.8, 
+      category: "High-End",
+      icon: "🏙️"
+    },
+    { 
+      title: "Modern Apartment", 
+      type: "For Rent",
+      lessons: "15 Viewings", 
+      rate: 5.0, 
+      category: "Urban Living",
+      icon: "🏢"
+    },
+    { 
+      title: "Suburban Home", 
+      type: "For Sale",
+      lessons: "8 Viewings", 
+      rate: 4.6, 
+      category: "Family Home",
+      icon: "🏡"
+    },
+  ];
   
   const recentActivity = [
     { agent: "Sarah Lee", action: "Sold", property: "Parkview Heights", value: "$1.2M", time: "2h" },
@@ -51,27 +83,71 @@ const AgentDashboard = () => {
     { agent: "Olivia Martinez", action: "Sold", property: "Mountainview Estate", value: "$3.1M", time: "1w" },
     { agent: "Ethan Roberts", action: "Rented", property: "City Center Apts", value: "$4.5K", time: "1w" },
     { agent: "Sophia Williams", action: "Sold", property: "Harbor Views", value: "$2.7M", time: "1w" },
-    { agent: "Noah Johnson", action: "Rented", property: "Green Valley Homes", value: "$3.8K", time: "2w" },
-    { agent: "Emma Brown", action: "Sold", property: "Golden Gate Condos", value: "$1.5M", time: "2w" },
-    { agent: "Liam Garcia", action: "Rented", property: "Sky Towers", value: "$6.9K", time: "3w" },
-    { agent: "Ava Wilson", action: "Sold", property: "Silver Lake Estate", value: "$4.3M", time: "3w" },
   ];
   
-  // Sales chart data - yearly sales transactions
-  const yearlySalesData = [
-    { date: new Date("2023-01-15"), value: 4 },
-    { date: new Date("2023-02-15"), value: 6 },
-    { date: new Date("2023-03-15"), value: 8 },
-    { date: new Date("2023-04-15"), value: 7 },
-    { date: new Date("2023-05-15"), value: 9 },
-    { date: new Date("2023-06-15"), value: 12 },
-    { date: new Date("2023-07-15"), value: 11 },
-    { date: new Date("2023-08-15"), value: 13 },
-    { date: new Date("2023-09-15"), value: 10 },
-    { date: new Date("2023-10-15"), value: 8 },
-    { date: new Date("2023-11-15"), value: 11 },
-    { date: new Date("2023-12-15"), value: 15 },
+  // Schedule data
+  const scheduleItems = [
+    { 
+      title: "Open House", 
+      type: "Appointment", 
+      category: "Showing",
+      icon: "🏠" 
+    },
+    { 
+      title: "Client Meeting", 
+      type: "Group",
+      category: "Discussion", 
+      icon: "👥" 
+    },
+    { 
+      title: "Contract Review", 
+      type: "Group",
+      category: "Legal", 
+      icon: "📝" 
+    },
+    { 
+      title: "Property Inspection", 
+      type: "Appointment",
+      category: "Assessment", 
+      icon: "🔍" 
+    },
   ];
+  
+  // Assignment data
+  const assignmentItems = [
+    {
+      title: "Lead Follow-up",
+      date: "02 Aug, 10:30 AM",
+      status: "In progress",
+      icon: "📞"
+    },
+    {
+      title: "Market Analysis",
+      date: "14 Aug, 12:45 PM",
+      status: "Completed",
+      icon: "📊"
+    },
+    {
+      title: "Property Listing",
+      date: "22 Aug, 11:00 AM",
+      status: "Upcoming",
+      icon: "📸"
+    }
+  ];
+  
+  // Activity data
+  const activityData = [
+    { day: "Su", value: 2 },
+    { day: "Mo", value: 4 },
+    { day: "Tu", value: 6 },
+    { day: "We", value: 3 },
+    { day: "Th", value: 5 },
+    { day: "Fr", value: 2 },
+    { day: "Sa", value: 1 },
+  ];
+  
+  // Percentage increase
+  const percentageIncrease = "+3%";
   
   // Sidebar navigation items
   const navItems = [
@@ -132,16 +208,33 @@ const AgentDashboard = () => {
       </div>
     );
   };
+  
+  // Calendar days
+  const calendarDays = [
+    { date: 30, current: false }, { date: 31, current: false },
+    { date: 1, current: true }, { date: 2, current: true }, { date: 3, current: true }, { date: 4, current: true },
+    { date: 5, current: true }, { date: 6, current: true }, { date: 7, current: true }, { date: 8, current: true },
+    { date: 9, current: true }, { date: 10, current: true }, { date: 11, current: true },
+    { date: 12, current: true }, { date: 13, current: true }, { date: 14, current: true }, { date: 15, current: true },
+    { date: 16, current: true }, { date: 17, current: true, isToday: true }, { date: 18, current: true },
+    { date: 19, current: true }, { date: 20, current: true }, { date: 21, current: true }, { date: 22, current: true },
+    { date: 23, current: true }, { date: 24, current: true }, { date: 25, current: true },
+    { date: 26, current: true }, { date: 27, current: true }, { date: 28, current: true }, { date: 29, current: true },
+    { date: 30, current: true }, { date: 31, current: true }, { date: 1, current: false }, { date: 2, current: false }
+  ];
+  
+  // Calendar header
+  const calendarHeader = ["S", "M", "T", "W", "T", "F", "S"];
 
   return (
-    <div className="bg-black text-white min-h-screen flex overflow-hidden">
+    <div className="bg-[#F8F7FF] text-slate-800 min-h-screen flex overflow-hidden">
       {/* Sidebar */}
       <div className={`bg-slate-900 border-r border-slate-800 transition-all duration-300 ${
         sidebarCollapsed ? 'w-16' : 'w-60'
       } flex flex-col h-screen fixed left-0 top-0 z-30`}>
         {/* Sidebar Header */}
         <div className="h-16 border-b border-slate-800 flex items-center justify-between px-4">
-          {!sidebarCollapsed && <h1 className="font-bold text-lg">Agent Portal</h1>}
+          {!sidebarCollapsed && <h1 className="font-bold text-lg text-white">Agent Portal</h1>}
           <Button 
             variant="ghost" 
             size="icon" 
@@ -179,7 +272,7 @@ const AgentDashboard = () => {
             </Avatar>
             {!sidebarCollapsed && (
               <div className="ml-3">
-                <div className="font-medium">John Doe</div>
+                <div className="font-medium text-white">John Doe</div>
                 <div className="text-xs text-slate-400">Senior Agent</div>
               </div>
             )}
@@ -192,300 +285,289 @@ const AgentDashboard = () => {
         sidebarCollapsed ? 'ml-16' : 'ml-60'
       }`}>
         {/* Top Header */}
-        <header className="h-16 bg-black border-b border-slate-800 sticky top-0 z-20 flex items-center justify-between px-6">
+        <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-20 flex items-center justify-between px-6">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold">Dashboard</h1>
+            <h1 className="text-2xl font-bold">Welcome back, John 👋</h1>
           </div>
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Button variant="outline" size="sm" className="text-slate-400 border-slate-700">
-                <Plus className="h-4 w-4 mr-2" />
-                New Property
-              </Button>
+              <div className="flex items-center px-3 py-2 bg-slate-100 rounded-full">
+                <Search className="h-4 w-4 text-slate-400 mr-2" />
+                <input 
+                  type="text" 
+                  placeholder="Search properties" 
+                  className="bg-transparent text-sm outline-none w-40" 
+                />
+              </div>
             </div>
-            <Button variant="ghost" size="icon" className="text-slate-400">
-              <Search className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-slate-400 relative">
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full"></span>
-            </Button>
-            <Avatar className="h-8 w-8">
-              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600">JD</AvatarFallback>
+            <Avatar className="h-10 w-10 ring-2 ring-purple-500/20">
+              <AvatarFallback className="bg-gradient-to-br from-purple-500 to-blue-500 text-white">JD</AvatarFallback>
             </Avatar>
           </div>
         </header>
         
-        {/* Activity Modal */}
-        {showMoreActivity && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-slate-900 rounded-lg shadow-lg w-full max-w-2xl">
-              <div className="flex justify-between items-center p-4 border-b border-slate-800">
-                <h3 className="text-lg font-medium">All Recent Activity</h3>
-                <Button variant="ghost" size="icon" onClick={() => setShowMoreActivity(false)}>
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
-              <div className="p-4 max-h-[70vh] overflow-y-auto">
-                <div className="space-y-3">
-                  {[...recentActivity, ...previousActivity].map((activity, index) => (
-                    <div key={index} className="flex items-center py-2 border-b border-slate-800">
-                      <Avatar className="h-8 w-8 mr-3 bg-slate-700">
-                        <AvatarFallback>
-                          {activity.agent.split(' ').map(name => name[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="font-medium">{activity.agent}</div>
-                        <div className="text-slate-400">
-                          <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                            {activity.action}
-                          </span>
-                          {" "}{activity.property} • {activity.value}
+        {/* Dashboard Content */}
+        <div className="p-6">
+          {/* New Properties Section */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold">New Properties</h2>
+              <Button variant="ghost" size="sm" className="text-purple-600 hover:text-purple-700">
+                View All
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {propertyListings.map((property, idx) => (
+                <Card key={idx} className="bg-white border-none shadow-sm hover:shadow-md transition-shadow duration-200">
+                  <CardContent className="p-5">
+                    <div className="flex items-start">
+                      <div className="bg-purple-100 rounded-xl p-3 text-2xl mr-3">
+                        {property.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-base">{property.title}</h3>
+                        <p className="text-slate-500 text-sm">{property.lessons}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-center mt-4">
+                      <div>
+                        <p className="text-xs text-slate-500">Rate</p>
+                        <div className="flex items-center">
+                          <span className="text-yellow-500 mr-1">★</span>
+                          <span className="font-semibold">{property.rate}</span>
                         </div>
                       </div>
-                      <div className="text-slate-400 text-sm">{activity.time}</div>
+                      
+                      <div>
+                        <p className="text-xs text-slate-500">Type</p>
+                        <p className="font-semibold text-sm">{property.category}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+          
+          {/* Middle Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+            {/* Hours Activity Card */}
+            <Card className="bg-white border-none shadow-sm lg:col-span-5">
+              <CardHeader className="p-4 pb-0">
+                <div className="flex justify-between">
+                  <CardTitle className="text-lg font-bold">Hours Activity</CardTitle>
+                  <div className="flex items-center">
+                    <Button variant="outline" size="sm" className="h-8 text-xs">
+                      Weekly
+                      <ChevronDown size={14} className="ml-1" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm mt-1">
+                  <span className="text-green-500 font-medium">{percentageIncrease}</span>
+                  <span className="text-slate-500 ml-1">Increase than last week</span>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4">
+                {/* Activity Chart */}
+                <div className="h-48 mt-4 relative">
+                  <div className="absolute top-0 left-0 h-full px-2">
+                    <div className="h-full flex flex-col justify-between text-xs text-slate-500">
+                      <span>8h</span>
+                      <span>6h</span>
+                      <span>4h</span>
+                      <span>2h</span>
+                      <span>1h</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-0 left-8 right-0 h-40">
+                    <div className="flex justify-between h-full items-end">
+                      {activityData.map((item, idx) => (
+                        <div key={idx} className="flex flex-col items-center w-full">
+                          <div 
+                            className={`w-6 rounded-t-sm ${
+                              idx === 3 ? 'bg-green-400' : 'bg-slate-300'
+                            }`} 
+                            style={{ height: `${item.value * 15}%` }} 
+                          >
+                            {idx === 3 && (
+                              <div className="relative">
+                                <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white py-1 px-2 rounded text-xs whitespace-nowrap">
+                                  <div className="font-medium">5h 45 min</div>
+                                  <div className="text-xs">15 Jan 2023</div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <div className="mt-2 text-xs text-slate-500">{item.day}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Daily Schedule Card */}
+            <Card className="bg-white border-none shadow-sm lg:col-span-7">
+              <CardHeader className="p-4 pb-0">
+                <CardTitle className="text-lg font-bold">Daily Schedule</CardTitle>
+              </CardHeader>
+              <CardContent className="p-4">
+                <div className="space-y-3">
+                  {scheduleItems.map((item, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-lg transition-colors">
+                      <div className="flex items-center">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg ${
+                          idx % 2 === 0 ? 'bg-purple-100' : 'bg-amber-100'
+                        }`}>
+                          {item.icon}
+                        </div>
+                        <div className="ml-3">
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-slate-500">{item.type} • {item.category}</div>
+                        </div>
+                      </div>
+                      <ChevronRight size={18} className="text-slate-400" />
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="p-4 border-t border-slate-800">
-                <Button 
-                  variant="outline" 
-                  className="w-full" 
-                  onClick={() => setShowMoreActivity(false)}
-                >
-                  Close
-                </Button>
-              </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Bottom Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Calendar Card */}
+            <Card className="bg-white border-none shadow-sm lg:col-span-5">
+              <CardHeader className="p-4 pb-0">
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center space-x-2">
+                    <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400">
+                      <ArrowLeft size={16} />
+                    </Button>
+                    <span className="font-semibold">{currentMonth}</span>
+                    <Button variant="ghost" size="icon" className="h-7 w-7 text-slate-400">
+                      <ArrowRight size={16} />
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4">
+                <div className="grid grid-cols-7 gap-1 text-center">
+                  {calendarHeader.map((day, idx) => (
+                    <div key={idx} className="text-xs font-medium text-slate-500 py-2">
+                      {day}
+                    </div>
+                  ))}
+                  
+                  {calendarDays.map((day, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`text-xs p-2 rounded-full flex items-center justify-center ${
+                        day.isToday 
+                          ? 'bg-green-500 text-white' 
+                          : day.current 
+                            ? 'text-slate-800 hover:bg-slate-100 cursor-pointer' 
+                            : 'text-slate-400'
+                      }`}
+                    >
+                      {day.date}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Assignments Card */}
+            <Card className="bg-white border-none shadow-sm lg:col-span-7">
+              <CardHeader className="p-4 pb-0">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-lg font-bold">Assignments</CardTitle>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-green-500 bg-green-50 rounded-full">
+                    <Plus size={16} />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4">
+                <div className="space-y-4">
+                  {assignmentItems.map((item, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div className="flex items-center">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl bg-white shadow-sm">
+                          {item.icon}
+                        </div>
+                        <div className="ml-3">
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-slate-500">{item.date}</div>
+                        </div>
+                      </div>
+                      <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        item.status === 'In progress' 
+                          ? 'bg-blue-100 text-blue-600' 
+                          : item.status === 'Completed' 
+                            ? 'bg-green-100 text-green-600' 
+                            : 'bg-amber-100 text-amber-600'
+                      }`}>
+                        {item.status}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+      
+      {/* Activity Modal */}
+      {showMoreActivity && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl">
+            <div className="flex justify-between items-center p-4 border-b border-slate-200">
+              <h3 className="text-lg font-medium">All Recent Activity</h3>
+              <Button variant="ghost" size="icon" onClick={() => setShowMoreActivity(false)}>
+                <X className="h-5 w-5" />
+              </Button>
             </div>
-          </div>
-        )}
-        
-        {/* Dashboard Content */}
-        <div className="p-4 grid grid-cols-12 gap-4">
-          {/* Top Stats - 2x2 Grid */}
-          <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-4">
-            {/* Total Revenue - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Total Revenue</div>
-                <div className="text-2xl font-bold animate-fade-in">$498,250</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
-                  15% vs last year
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Avg Transaction - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Avg. Transaction</div>
-                <div className="text-2xl font-bold animate-fade-in">$849,600</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
-                  8% vs last year
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Total Properties - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Total Properties</div>
-                <div className="text-2xl font-bold animate-fade-in">114</div>
-                <div className="flex text-xs mt-1 gap-2">
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
-                    <span className="text-blue-400">37 Sold</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
-                    <span className="text-purple-400">77 Rented</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Team Ranking - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Team Ranking</div>
-                <div className="text-2xl font-bold animate-fade-in">#2</div>
-                <div className="text-yellow-400 text-xs flex items-center">
-                  <Award size={12} className="mr-1" />
-                  Top 10% nationwide
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Top Right Content - Commission Claims Card */}
-          <div className="col-span-12 lg:col-span-4 space-y-4">
-            <Card className="bg-slate-900 border-slate-800 shadow-md h-24">
-              <CardHeader className="p-3 pb-0">
-                <CardTitle className="text-sm font-semibold">Commission Claims</CardTitle>
-              </CardHeader>
-              <CardContent className="p-3 pt-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="text-xl font-bold animate-fade-in">
-                    {commissionProgress}%
-                  </div>
-                  <div className="text-green-400 text-xs flex items-center bg-green-500/10 px-1.5 py-0.5 rounded-full">
-                    <TrendingUp size={10} className="mr-0.5" />
-                    12%
-                  </div>
-                </div>
-                
-                {renderSegments(commissionProgress, 100)}
-              </CardContent>
-            </Card>
-            
-            {/* Upcoming Appointments Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md h-24">
-              <CardHeader className="p-3 pb-0">
-                <CardTitle className="text-sm font-semibold">Upcoming Appointments</CardTitle>
-              </CardHeader>
-              <CardContent className="p-3 pt-1 text-xs">
-                <div className="flex items-center border-l-2 border-blue-500 pl-2 mb-1.5">
-                  <Calendar size={10} className="text-blue-400 mr-1.5" />
-                  <div>
-                    <div className="font-medium">Property Viewing</div>
-                    <div className="text-slate-400">Today, 2:30 PM</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center border-l-2 border-green-500 pl-2">
-                  <Users size={10} className="text-green-400 mr-1.5" />
-                  <div>
-                    <div className="font-medium">Client Meeting</div>
-                    <div className="text-slate-400">Tomorrow, 10:00 AM</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          
-          {/* Yearly Sales Chart Card */}
-          <Card className="bg-slate-900 border-slate-800 shadow-md col-span-12 lg:col-span-8">
-            <CardHeader className="p-4 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold">Yearly Sales Transactions</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-              <div className="text-sm text-slate-400">
-                Monthly performance for 2023
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 pt-3">
-              <LineChartPulse data={yearlySalesData} height="h-56" />
-              <div className="flex justify-between text-sm pt-2">
-                <div className="flex items-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
-                  <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
-                </div>
-                <div className="text-green-400 font-medium">
-                  +23% from previous year
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Sales Transaction Progress Card */}
-          <Card className="bg-slate-900 border-slate-800 shadow-md col-span-12 lg:col-span-4">
-            <CardHeader className="p-4 pb-2">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold">Sales Transaction</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-              <p className="text-slate-400 text-sm">
-                On track to finish early
-              </p>
-            </CardHeader>
-            <CardContent className="p-4 pt-2 space-y-4">
-              <div className="flex items-center gap-2">
-                <div className="text-2xl font-bold animate-fade-in">
-                  {salesProgress}%
-                </div>
-                <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
-                  <TrendingUp className="h-3 w-3 mr-1" />
-                  30%
-                </div>
-              </div>
-              
-              {renderSegments(salesProgress, 100)}
-              
-              <div className="grid grid-cols-2 gap-3 mt-1">
-                <div className="bg-slate-800/50 p-2.5 rounded-lg">
-                  <div className="flex items-center text-blue-400 mb-1 text-xs">
-                    <Home size={12} className="mr-1.5" />
-                    <span>Sold</span>
-                  </div>
-                  <div className="text-xl font-semibold">37</div>
-                </div>
-                <div className="bg-slate-800/50 p-2.5 rounded-lg">
-                  <div className="flex items-center text-purple-400 mb-1 text-xs">
-                    <Home size={12} className="mr-1.5" />
-                    <span>Rented</span>
-                  </div>
-                  <div className="text-xl font-semibold">77</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Recent Activity Card */}
-          <Card className="bg-slate-900 border-slate-800 shadow-md col-span-12">
-            <CardHeader className="p-4 pb-2">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 pt-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
-                    <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
-                      <AvatarFallback className="text-[10px]">
+            <div className="p-4 max-h-[70vh] overflow-y-auto">
+              <div className="space-y-3">
+                {[...recentActivity, ...previousActivity].map((activity, index) => (
+                  <div key={index} className="flex items-center py-2 border-b border-slate-200">
+                    <Avatar className="h-8 w-8 mr-3 bg-slate-200">
+                      <AvatarFallback>
                         {activity.agent.split(' ').map(name => name[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 text-sm">
+                    <div className="flex-1">
                       <div className="font-medium">{activity.agent}</div>
-                      <div className="text-slate-400 mt-0.5">
-                        <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                      <div className="text-slate-500">
+                        <span className={activity.action === "Sold" ? "text-green-600" : "text-blue-600"}>
                           {activity.action}
                         </span>
                         {" "}{activity.property} • {activity.value}
                       </div>
                     </div>
-                    <div className="text-slate-400 text-xs">{activity.time}</div>
+                    <div className="text-slate-400 text-sm">{activity.time}</div>
                   </div>
                 ))}
               </div>
-              <div className="pt-3">
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
-                  onClick={() => setShowMoreActivity(true)}
-                >
-                  View all activity
-                  <ChevronDown size={14} className="ml-2" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+            <div className="p-4 border-t border-slate-200">
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={() => setShowMoreActivity(false)}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
