@@ -27,11 +27,11 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
   };
 
   return (
-    <Card className="commission-claims-card bg-slate-900 border-slate-800">
-      <CardHeader className="commission-claims-header p-5 pb-2.5">
+    <Card className="commission-claims-card bg-slate-900 border-slate-800 flex flex-col h-full">
+      <CardHeader className="commission-claims-header p-5 pb-2.5 flex-shrink-0">
         <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
       </CardHeader>
-      <CardContent className="commission-claims-content p-5 pt-3">
+      <CardContent className="commission-claims-content p-5 pt-3 flex flex-col flex-grow overflow-y-auto">
         <div className="flex items-center gap-3 mb-1">
           <div className="text-5xl font-bold text-purple-400 animate-fade-in">
             {progress}%
