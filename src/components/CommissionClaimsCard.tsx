@@ -10,38 +10,30 @@ interface CommissionClaimsCardProps {
 const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
   // Progress bar segments renderer specific to Commission Claims
   const renderCommissionSegments = (current: number, count = 10) => {
-    const segments = [];
-    const filledSegments = Math.floor((current / 100) * count);
-    
-    for (let i = 0; i < count; i++) {
-      segments.push(
-        <div
-          key={i}
-          className={`h-1.5 w-full rounded-full transition-all duration-300 ${
-            i < filledSegments ? 'bg-purple-500' : 'bg-slate-700'
-          }`}
-          style={{
-            opacity: i < filledSegments ? 1 : 0.3,
-            transition: `opacity 300ms ease-out ${i * 50}ms, background-color 300ms ease-out`
-          }}
-        />
-      );
-    }
     return (
-      <div className="grid grid-cols-10 gap-1 w-full">
-        {segments}
+      <div className="flex w-full gap-1">
+        {Array.from({ length: count }).map((_, i) => (
+          <div
+            key={i}
+            className={`h-1.5 flex-1 rounded-full bg-purple-500 opacity-40`}
+            style={{
+              opacity: i < Math.floor((current / 100) * count) ? 1 : 0.4,
+              transition: `opacity 300ms ease-out ${i * 50}ms, background-color 300ms ease-out`
+            }}
+          />
+        ))}
       </div>
     );
   };
 
   return (
-    <Card className="commission-claims-card">
+    <Card className="commission-claims-card h-full bg-slate-900 border-slate-800">
       <CardHeader className="commission-claims-header p-6 pb-3">
         <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
       </CardHeader>
       <CardContent className="commission-claims-content p-6 pt-4">
         <div className="flex items-center gap-4 mb-5">
-          <div className="text-5xl font-bold animate-fade-in">
+          <div className="text-5xl font-bold text-purple-400 animate-fade-in">
             {progress}%
           </div>
           <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-3 py-2 rounded-full">
