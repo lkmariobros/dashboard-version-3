@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const UpcomingAppointmentsCard = () => {
   return (
-    <Card className="upcoming-appointments-card h-full" style={{ height: "400px" }}>
+    <Card className="upcoming-appointments-card h-full">
       <CardHeader className="upcoming-appointments-header">
         <CardTitle className="upcoming-appointments-title">Upcoming Appointments</CardTitle>
       </CardHeader>

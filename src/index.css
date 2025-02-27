@@ -132,7 +132,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  height: 400px !important; /* Force a fixed height */
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -245,7 +245,7 @@
 .grid-dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(min-content, max-content);
+  grid-template-rows: auto auto auto 350px;
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
@@ -277,7 +277,7 @@
 
 .yearly-sales { 
   grid-area: yearly-sales;
-  height: auto !important; /* Force auto height */
+  height: auto;
 }
 
 .commission-claims { 
@@ -286,27 +286,29 @@
 }
 
 .sales-transaction { 
-  grid-area: sales-transaction; 
+  grid-area: sales-transaction;
+  height: auto;
 }
 
 .upcoming-appointments { 
-  grid-area: upcoming-appointments; 
-  height: 400px !important; /* Force fixed height */
+  grid-area: upcoming-appointments;
+  height: 100%;
 }
 
 .recent-activity { 
-  grid-area: recent-activity; 
-  height: 400px !important; /* Match height with upcoming appointments */
+  grid-area: recent-activity;
+  height: 100%;
 }
 
 /* Recent activity custom styling */
 .recent-activity .dashboard-card {
-  max-height: 400px;
-  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .recent-activity-items {
-  max-height: 320px;
+  flex: 1;
   overflow-y: auto;
   /* Custom scrollbar */
   scrollbar-width: thin;

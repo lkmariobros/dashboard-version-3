@@ -359,9 +359,9 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Sales Transaction */}
+            {/* Sales Transaction - Compact metric card */}
             <div className="sales-transaction">
-              <div className="dashboard-card h-full">
+              <div className="dashboard-card">
                 <div className="p-4 pb-0">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Sales Transaction</div>
@@ -389,10 +389,10 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Recent Activity */}
+            {/* Recent Activity - Extended height */}
             <div className="recent-activity">
-              <div className="dashboard-card h-full">
-                <div className="p-4 pb-2 border-b border-slate-800">
+              <div className="dashboard-card h-full flex flex-col">
+                <div className="p-4 pb-2 border-b border-slate-800 flex-shrink-0">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Recent Activity</div>
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
@@ -400,8 +400,8 @@ const AgentDashboard = () => {
                     </Button>
                   </div>
                 </div>
-                <div className="p-4 pt-2">
-                  <div className="recent-activity-items">
+                <div className="p-4 pt-2 flex-grow flex flex-col">
+                  <div className="recent-activity-items flex-grow">
                     <div className="grid grid-cols-1 gap-3">
                       {recentActivity.map((activity, index) => (
                         <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
@@ -424,7 +424,7 @@ const AgentDashboard = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="pt-3 mt-auto">
+                  <div className="pt-3 mt-auto flex-shrink-0">
                     <Button 
                       variant="outline" 
                       size="sm" 
@@ -439,7 +439,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Upcoming Appointments */}
+            {/* Upcoming Appointments - Extended height */}
             <div className="upcoming-appointments">
               <UpcomingAppointmentsCard />
             </div>
