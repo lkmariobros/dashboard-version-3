@@ -16,7 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
 const AgentDashboard = () => {
@@ -72,12 +71,13 @@ const AgentDashboard = () => {
       segments.push(
         <div
           key={i}
-          className={`h-2 w-1 mx-0.5 rounded-sm transition-all duration-300 ${
-            i < filledSegments ? 'bg-white' : 'bg-slate-700'
+          className={`h-1.5 w-1 mx-0.5 rounded-sm ${
+            i < filledSegments ? 'bg-white' : 'bg-gray-800'
           }`}
           style={{
             transform: i < filledSegments ? 'scaleY(1)' : 'scaleY(0.3)',
-            transition: `transform 300ms ease-out ${i * 15}ms`
+            opacity: i < filledSegments ? 1 : 0.3,
+            transition: `transform 300ms ease-out ${i * 15}ms, opacity 300ms ease-out ${i * 15}ms`
           }}
         />
       );
@@ -86,23 +86,23 @@ const AgentDashboard = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen overflow-x-hidden">
+    <div className="bg-black text-white min-h-screen">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-black/90 backdrop-blur-sm border-b border-slate-800 px-4 py-2 flex justify-between items-center">
+      <header className="sticky top-0 z-10 bg-black border-b border-gray-800 px-4 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="mr-2 text-white">
+          <Button variant="ghost" size="icon" className="mr-3 text-white">
             <Menu className="h-5 w-5" />
           </Button>
           <h1 className="text-lg font-bold">Agent Dashboard</h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Button variant="ghost" size="icon" className="text-white">
             <Search className="h-5 w-5" />
           </Button>
           <Button variant="ghost" size="icon" className="text-white">
             <Bell className="h-5 w-5" />
           </Button>
-          <Avatar className="h-8 w-8 bg-blue-500">
+          <Avatar className="h-8 w-8 bg-gray-700">
             <AvatarFallback>
               <User className="h-4 w-4" />
             </AvatarFallback>
@@ -111,99 +111,98 @@ const AgentDashboard = () => {
       </header>
       
       {/* Main Content */}
-      <div className="p-3 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 auto-rows-min">
+      <div className="p-3 grid grid-cols-1 md:grid-cols-2 gap-3 max-w-[1600px] mx-auto">
         
-        {/* Summary Stats - Moved to top */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Total Revenue</div>
-              <div className="text-2xl font-bold animate-fade-in">$498,250</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                15% vs last year
+        {/* Summary Stats Row */}
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardContent className="py-4 px-4">
+            <div className="text-gray-400 text-xs mb-1">Total Revenue</div>
+            <div className="text-2xl font-bold animate-fade-in">$498,250</div>
+            <div className="text-green-400 text-xs flex items-center mt-1">
+              <TrendingUp size={10} className="mr-1" />
+              15% vs last year
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardContent className="py-4 px-4">
+            <div className="text-gray-400 text-xs mb-1">Avg. Transaction</div>
+            <div className="text-2xl font-bold animate-fade-in">$849,600</div>
+            <div className="text-green-400 text-xs flex items-center mt-1">
+              <TrendingUp size={10} className="mr-1" />
+              8% vs last year
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardContent className="py-4 px-4">
+            <div className="text-gray-400 text-xs mb-1">Total Properties</div>
+            <div className="text-2xl font-bold animate-fade-in">11</div>
+            <div className="flex text-xs mt-1">
+              <div className="mr-3 flex items-center">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
+                <span>4 Sold</span>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Avg. Transaction</div>
-              <div className="text-2xl font-bold animate-fade-in">$849,600</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                8% vs last year
+              <div className="flex items-center">
+                <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
+                <span>7 Rented</span>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Total Properties</div>
-              <div className="text-2xl font-bold animate-fade-in">11</div>
-              <div className="flex text-xs mt-1">
-                <div className="mr-3 flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
-                  <span>4 Sold</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
-                  <span>7 Rented</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="pt-4">
-              <div className="text-slate-400 text-xs mb-1">Team Ranking</div>
-              <div className="text-2xl font-bold animate-fade-in">#2</div>
-              <div className="text-yellow-400 text-xs flex items-center">
-                <Award size={10} className="mr-1" />
-                Top 10% nationwide
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardContent className="py-4 px-4">
+            <div className="text-gray-400 text-xs mb-1">Team Ranking</div>
+            <div className="text-2xl font-bold animate-fade-in">#2</div>
+            <div className="text-yellow-400 text-xs flex items-center mt-1">
+              <Award size={10} className="mr-1" />
+              Top 10% nationwide
+            </div>
+          </CardContent>
+        </Card>
         
         {/* Sales Transaction Progress Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4 lg:row-span-2">
-          <CardHeader className="pb-2">
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardHeader className="pb-0 pt-4 px-4">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Sales Transaction</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
-            <p className="text-slate-400 text-xs">
+          </CardHeader>
+          <CardContent className="px-4 py-3">
+            <p className="text-gray-400 text-xs mb-3">
               On track to finish three days early
             </p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
+            
+            <div className="flex items-center gap-2 mb-3">
               <div className="text-3xl font-bold animate-fade-in">
                 {salesProgress}%
               </div>
               
-              <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
+              <div className="flex items-center bg-gray-800/50 px-2 py-0.5 rounded-full">
                 <TrendingUp className="text-white mr-1" size={12} />
                 <span className="text-xs">30%</span>
               </div>
             </div>
             
-            <div className="flex">
+            <div className="flex mb-5">
               {renderSegments(salesProgress, 100)}
             </div>
             
             <div className="grid grid-cols-2 gap-2">
-              <div className="bg-slate-800/50 p-2 rounded-lg">
+              <div className="bg-gray-900 p-3 rounded-lg">
                 <div className="flex items-center text-blue-400 mb-1 text-xs">
                   <Home size={12} className="mr-1" />
                   <span>Properties Sold</span>
                 </div>
                 <div className="text-xl font-semibold">4</div>
               </div>
-              <div className="bg-slate-800/50 p-2 rounded-lg">
+              <div className="bg-gray-900 p-3 rounded-lg">
                 <div className="flex items-center text-purple-400 mb-1 text-xs">
                   <Home size={12} className="mr-1" />
                   <span>Properties Rented</span>
@@ -215,27 +214,27 @@ const AgentDashboard = () => {
         </Card>
         
         {/* Upcoming Commission Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
-          <CardHeader className="pb-2">
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardHeader className="pb-0 pt-4 px-4">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Upcoming Commission</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-2xl font-bold flex items-center animate-fade-in">
-              <DollarSign size={18} className="text-green-400 mr-1" />
+          <CardContent className="px-4 pb-4 pt-3">
+            <div className="text-2xl font-bold flex items-center mb-3 text-green-400">
+              <DollarSign size={20} className="text-green-400 mr-1" />
               $14,200
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-3">
               {upcomingCommissions.map((commission, index) => (
                 <div key={index} className="flex justify-between text-xs">
                   <div>
                     <div className="font-medium">{commission.property}</div>
-                    <div className="text-slate-400 flex items-center">
+                    <div className="text-gray-400 flex items-center mt-0.5">
                       <Calendar size={10} className="mr-1" />
                       {commission.date}
                     </div>
@@ -250,42 +249,42 @@ const AgentDashboard = () => {
         </Card>
         
         {/* Commission Claims Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
-          <CardHeader className="pb-2">
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardHeader className="pb-0 pt-4 px-4">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Commission Claims</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
+          <CardContent className="px-4 pb-4 pt-3">
+            <div className="flex items-center gap-2 mb-3">
               <div className="text-2xl font-bold animate-fade-in">
                 {commissionProgress}%
               </div>
               
-              <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
+              <div className="flex items-center bg-gray-800/50 px-2 py-0.5 rounded-full">
                 <TrendingUp className="text-green-400 mr-1" size={12} />
                 <span className="text-xs">12%</span>
               </div>
             </div>
             
-            <div className="flex">
+            <div className="flex mb-5">
               {renderSegments(commissionProgress, 100)}
             </div>
             
             <div className="flex justify-between text-xs">
               <div>
-                <div className="text-slate-400">Claimed</div>
+                <div className="text-gray-400">Claimed</div>
                 <div className="font-semibold">$89K</div>
               </div>
               <div>
-                <div className="text-slate-400">Pending</div>
+                <div className="text-gray-400">Pending</div>
                 <div className="font-semibold">$13K</div>
               </div>
               <div>
-                <div className="text-slate-400">Target</div>
+                <div className="text-gray-400">Target</div>
                 <div className="font-semibold">$120K</div>
               </div>
             </div>
@@ -293,76 +292,76 @@ const AgentDashboard = () => {
         </Card>
         
         {/* Recent Activity Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
-          <CardHeader className="pb-2">
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardHeader className="pb-0 pt-4 px-4">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="px-4 pb-4 pt-3 space-y-3">
             {recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center border-b border-slate-800 pb-1">
-                <Avatar className="h-6 w-6 mr-2 bg-blue-500">
+              <div key={index} className="flex items-center">
+                <Avatar className="h-7 w-7 mr-3 bg-gray-700">
                   <AvatarFallback className="text-[10px]">
-                    <Users size={12} />
+                    {activity.agent.split(' ').map(name => name[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 text-xs">
                   <div className="font-medium">{activity.agent}</div>
-                  <div className="text-slate-400">
+                  <div className="text-gray-400 mt-0.5">
                     <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
                       {activity.action}
                     </span>
                     {" "}{activity.property} • {activity.value}
                   </div>
                 </div>
-                <div className="text-slate-400 text-xs">{activity.time}</div>
+                <div className="text-gray-400 text-xs">{activity.time}</div>
               </div>
             ))}
           </CardContent>
         </Card>
         
         {/* Upcoming Appointments Card */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
-          <CardHeader className="pb-2">
+        <Card className="bg-black border-gray-800 shadow-lg col-span-1">
+          <CardHeader className="pb-0 pt-4 px-4">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Upcoming Appointments</CardTitle>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2">
-            <div className="flex items-center p-1 border-l-2 border-blue-500">
-              <div className="h-6 w-6 bg-blue-500/30 rounded-full flex items-center justify-center mr-2">
+          <CardContent className="px-4 pb-4 pt-3 space-y-3">
+            <div className="flex items-center pl-1 border-l-2 border-blue-500">
+              <div className="h-7 w-7 bg-blue-500/20 rounded-full flex items-center justify-center mr-3">
                 <Calendar size={12} />
               </div>
               <div className="flex-1 text-xs">
                 <div className="font-medium">Property Viewing</div>
-                <div className="text-slate-400">Today, 2:30 PM • Parkview Heights</div>
+                <div className="text-gray-400 mt-0.5">Today, 2:30 PM • Parkview Heights</div>
               </div>
             </div>
             
-            <div className="flex items-center p-1 border-l-2 border-green-500">
-              <div className="h-6 w-6 bg-green-500/30 rounded-full flex items-center justify-center mr-2">
+            <div className="flex items-center pl-1 border-l-2 border-green-500">
+              <div className="h-7 w-7 bg-green-500/20 rounded-full flex items-center justify-center mr-3">
                 <Users size={12} />
               </div>
               <div className="flex-1 text-xs">
                 <div className="font-medium">Client Meeting</div>
-                <div className="text-slate-400">Tomorrow, 10:00 AM • John & Lisa Chen</div>
+                <div className="text-gray-400 mt-0.5">Tomorrow, 10:00 AM • John & Lisa Chen</div>
               </div>
             </div>
             
-            <div className="flex items-center p-1 border-l-2 border-purple-500">
-              <div className="h-6 w-6 bg-purple-500/30 rounded-full flex items-center justify-center mr-2">
+            <div className="flex items-center pl-1 border-l-2 border-purple-500">
+              <div className="h-7 w-7 bg-purple-500/20 rounded-full flex items-center justify-center mr-3">
                 <DollarSign size={12} />
               </div>
               <div className="flex-1 text-xs">
                 <div className="font-medium">Contract Signing</div>
-                <div className="text-slate-400">Mar 1, 4:00 PM • Garden Terrace #03-22</div>
+                <div className="text-gray-400 mt-0.5">Mar 1, 4:00 PM • Garden Terrace #03-22</div>
               </div>
             </div>
           </CardContent>
