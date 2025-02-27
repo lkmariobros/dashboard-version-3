@@ -62,7 +62,7 @@ export function LineChartPulse({ data, height = "h-72" }: LineChartPulseProps) {
                 top: `${yScale(+value)}%`,
                 left: "0%",
               }}
-              className="absolute text-xs tabular-nums -translate-y-1/2 text-gray-500 w-full text-right pr-2"
+              className="absolute text-xs tabular-nums -translate-y-1/2 text-gray-400 w-full text-right pr-2"
             >
               {value}
             </div>
@@ -79,22 +79,47 @@ export function LineChartPulse({ data, height = "h-72" }: LineChartPulseProps) {
           overflow-visible
         "
       >
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-500/5 to-transparent rounded-lg"></div>
+        
         {/* Pulsating dot */}
         <div
-          className="absolute size-2"
+          className="absolute size-3"
           style={{
             left: `${xScale(data[data.length - 1].date)}%`,
             top: `${yScale(data[data.length - 1].value)}%`,
             transform: "translate(-50%, -50%)",
           }}
         >
-          <div className="animate-ping w-full h-full rounded-full bg-white dark:bg-blue-500 border-2 border-blue-400" />
+          <div className="absolute inset-0 animate-ping rounded-full bg-blue-400/30"></div>
+          <div className="absolute inset-0 rounded-full bg-blue-400 border-2 border-blue-500"></div>
         </div>
+        
         <svg
           viewBox="0 0 100 100"
           className="overflow-visible w-full h-full"
           preserveAspectRatio="none"
         >
+          {/* Area under the curve */}
+          <defs>
+            <linearGradient id="area-gradient" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="rgba(59, 130, 246, 0.3)" />
+              <stop offset="100%" stopColor="rgba(59, 130, 246, 0)" />
+            </linearGradient>
+            <clipPath id="area-clip">
+              <path 
+                d={`${d} L 100,100 L 0,100 Z`} 
+                fill="url(#area-gradient)"
+              />
+            </clipPath>
+          </defs>
+          
+          <path 
+            d={`${d} L 100,100 L 0,100 Z`} 
+            fill="url(#area-gradient)"
+            opacity="0.2"
+          />
+          
           {/* Grid lines */}
           {yScale
             .ticks(5)
@@ -102,31 +127,34 @@ export function LineChartPulse({ data, height = "h-72" }: LineChartPulseProps) {
             .map((active, i) => (
               <g
                 transform={`translate(0,${yScale(+active)})`}
-                className="text-zinc-300 dark:text-zinc-700"
+                className="text-slate-700"
                 key={i}
               >
                 <line
                   x1={0}
                   x2={100}
                   stroke="currentColor"
-                  strokeDasharray="6,5"
+                  strokeDasharray="3,3"
                   strokeWidth={0.5}
                   vectorEffect="non-scaling-stroke"
                 />
               </g>
             ))}
+          
           {/* Line */}
           <path
             d={d}
             fill="none"
             stroke="url(#linePulse-gradient)"
             strokeWidth="2"
+            strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
           />
+          
           <defs>
             <linearGradient id="linePulse-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#60a5fa" />
             </linearGradient>
           </defs>
         </svg>
@@ -134,12 +162,16 @@ export function LineChartPulse({ data, height = "h-72" }: LineChartPulseProps) {
         <div className="translate-y-2">
           {/* X Axis */}
           {data.map((day, i) => {
+            // Show first, middle, and last month
             const isFirst = i === 0;
             const isLast = i === data.length - 1;
             const isMiddle = i === Math.floor(data.length / 2);
-            if (!isFirst && !isLast && !isMiddle) return null;
+            const isQuarterMonth = i % 3 === 0;
+            
+            if (!isFirst && !isLast && !isMiddle && !isQuarterMonth) return null;
+            
             return (
-              <div key={i} className="overflow-visible text-zinc-500">
+              <div key={i} className="overflow-visible text-gray-400">
                 <div
                   style={{
                     left: `${xScale(day.date)}%`,
@@ -150,7 +182,6 @@ export function LineChartPulse({ data, height = "h-72" }: LineChartPulseProps) {
                 >
                   {day.date.toLocaleDateString("en-US", {
                     month: "short",
-                    day: "numeric",
                   })}
                 </div>
               </div>

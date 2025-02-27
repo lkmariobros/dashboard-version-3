@@ -15,7 +15,11 @@ import {
   ChevronDown,
   ChevronUp,
   X,
-  LineChart
+  LineChart,
+  Plus,
+  BarChart3,
+  Settings,
+  LogOut
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,6 +33,7 @@ const AgentDashboard = () => {
   const [salesProgress, setSalesProgress] = useState(0);
   const [commissionProgress, setCommissionProgress] = useState(0);
   const [showMoreActivity, setShowMoreActivity] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   
   // Sample data
   const salesTarget = 66;
@@ -68,6 +73,15 @@ const AgentDashboard = () => {
     { date: new Date("2023-12-15"), value: 15 },
   ];
   
+  // Sidebar navigation items
+  const navItems = [
+    { icon: Home, label: "Dashboard", active: true },
+    { icon: BarChart3, label: "Analytics" },
+    { icon: Users, label: "Clients" },
+    { icon: Calendar, label: "Calendar" },
+    { icon: Settings, label: "Settings" },
+  ];
+  
   // Animate progress bars on component mount
   useEffect(() => {
     const animateProgress = (setter, target, speed = 20) => {
@@ -94,7 +108,7 @@ const AgentDashboard = () => {
   }, []);
   
   // Progress bar segments renderer
-  const renderSegments = (current, total, count = 15) => {
+  const renderSegments = (current, total, count = 10) => {
     const segments = [];
     const filledSegments = Math.floor((current / 100) * count);
     
@@ -102,345 +116,429 @@ const AgentDashboard = () => {
       segments.push(
         <div
           key={i}
-          className={`h-2 w-1 mx-0.5 rounded-sm transition-all duration-300 ${
-            i < filledSegments ? 'bg-white' : 'bg-slate-700'
+          className={`h-1.5 w-full rounded-full transition-all duration-300 ${
+            i < filledSegments ? 'bg-blue-500' : 'bg-slate-700'
           }`}
           style={{
-            transform: i < filledSegments ? 'scaleY(1)' : 'scaleY(0.3)',
-            transition: `transform 300ms ease-out ${i * 15}ms`
+            opacity: i < filledSegments ? 1 : 0.3,
+            transition: `opacity 300ms ease-out ${i * 50}ms, background-color 300ms ease-out`
           }}
         />
       );
     }
-    return segments;
+    return (
+      <div className="grid grid-cols-10 gap-1 w-full">
+        {segments}
+      </div>
+    );
   };
 
   return (
-    <div className="bg-black text-white min-h-screen overflow-x-hidden">
-      {/* Header */}
-      <header className="sticky top-0 z-10 bg-black/90 backdrop-blur-sm border-b border-slate-800 px-4 py-2 flex justify-between items-center">
-        <div className="flex items-center">
-          <Button variant="ghost" size="icon" className="mr-2 text-white">
+    <div className="bg-black text-white min-h-screen flex overflow-hidden">
+      {/* Sidebar */}
+      <div className={`bg-slate-900 border-r border-slate-800 transition-all duration-300 ${
+        sidebarCollapsed ? 'w-16' : 'w-60'
+      } flex flex-col h-screen fixed left-0 top-0 z-30`}>
+        {/* Sidebar Header */}
+        <div className="h-16 border-b border-slate-800 flex items-center justify-between px-4">
+          {!sidebarCollapsed && <h1 className="font-bold text-lg">Agent Portal</h1>}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-slate-400 hover:text-white"
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          >
             <Menu className="h-5 w-5" />
           </Button>
-          <h1 className="text-lg font-bold">Agent Dashboard</h1>
         </div>
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" className="text-white">
-            <Search className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-white">
-            <Bell className="h-5 w-5" />
-          </Button>
-          <Avatar className="h-8 w-8 bg-blue-500">
-            <AvatarFallback>
-              <User className="h-4 w-4" />
-            </AvatarFallback>
-          </Avatar>
+        
+        {/* Sidebar Navigation */}
+        <div className="flex-1 py-4">
+          <ul className="space-y-2 px-2">
+            {navItems.map((item, index) => (
+              <li key={index}>
+                <Button 
+                  variant={item.active ? "secondary" : "ghost"} 
+                  className={`w-full justify-start text-left ${
+                    sidebarCollapsed ? 'px-3' : 'px-3'
+                  } ${item.active ? 'bg-slate-800 text-white' : 'text-slate-400 hover:text-white'}`}
+                >
+                  <item.icon className={`h-5 w-5 ${sidebarCollapsed ? '' : 'mr-3'}`} />
+                  {!sidebarCollapsed && <span>{item.label}</span>}
+                </Button>
+              </li>
+            ))}
+          </ul>
         </div>
-      </header>
+        
+        {/* Sidebar Footer */}
+        <div className="p-4 border-t border-slate-800">
+          <div className="flex items-center">
+            <Avatar className="h-9 w-9 bg-gradient-to-br from-blue-500 to-purple-600">
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            {!sidebarCollapsed && (
+              <div className="ml-3">
+                <div className="font-medium">John Doe</div>
+                <div className="text-xs text-slate-400">Senior Agent</div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       
-      {/* Activity Modal */}
-      {showMoreActivity && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-gray-900 rounded-lg shadow-lg w-full max-w-2xl">
-            <div className="flex justify-between items-center p-4 border-b border-gray-800">
-              <h3 className="text-lg font-medium">All Recent Activity</h3>
-              <Button variant="ghost" size="icon" onClick={() => setShowMoreActivity(false)}>
-                <X className="h-5 w-5" />
+      {/* Main Content */}
+      <div className={`flex-1 transition-all duration-300 ${
+        sidebarCollapsed ? 'ml-16' : 'ml-60'
+      }`}>
+        {/* Top Header */}
+        <header className="h-16 bg-black border-b border-slate-800 sticky top-0 z-20 flex items-center justify-between px-6">
+          <div className="flex items-center">
+            <h1 className="text-xl font-bold">Dashboard</h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <Button variant="outline" size="sm" className="text-slate-400 border-slate-700">
+                <Plus className="h-4 w-4 mr-2" />
+                New Property
               </Button>
             </div>
-            <div className="p-4 max-h-[70vh] overflow-y-auto">
-              <div className="space-y-3">
-                {[...recentActivity, ...previousActivity].map((activity, index) => (
-                  <div key={index} className="flex items-center py-2 border-b border-gray-800">
-                    <Avatar className="h-8 w-8 mr-3 bg-gray-700">
-                      <AvatarFallback>
+            <Button variant="ghost" size="icon" className="text-slate-400">
+              <Search className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-slate-400 relative">
+              <Bell className="h-5 w-5" />
+              <span className="absolute top-1 right-1 h-2 w-2 bg-blue-500 rounded-full"></span>
+            </Button>
+            <Avatar className="h-8 w-8">
+              <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600">JD</AvatarFallback>
+            </Avatar>
+          </div>
+        </header>
+        
+        {/* Activity Modal */}
+        {showMoreActivity && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-slate-900 rounded-lg shadow-lg w-full max-w-2xl">
+              <div className="flex justify-between items-center p-4 border-b border-slate-800">
+                <h3 className="text-lg font-medium">All Recent Activity</h3>
+                <Button variant="ghost" size="icon" onClick={() => setShowMoreActivity(false)}>
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              <div className="p-4 max-h-[70vh] overflow-y-auto">
+                <div className="space-y-3">
+                  {[...recentActivity, ...previousActivity].map((activity, index) => (
+                    <div key={index} className="flex items-center py-2 border-b border-slate-800">
+                      <Avatar className="h-8 w-8 mr-3 bg-slate-700">
+                        <AvatarFallback>
+                          {activity.agent.split(' ').map(name => name[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="font-medium">{activity.agent}</div>
+                        <div className="text-slate-400">
+                          <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                            {activity.action}
+                          </span>
+                          {" "}{activity.property} • {activity.value}
+                        </div>
+                      </div>
+                      <div className="text-slate-400 text-sm">{activity.time}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="p-4 border-t border-slate-800">
+                <Button 
+                  variant="outline" 
+                  className="w-full" 
+                  onClick={() => setShowMoreActivity(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Dashboard Content */}
+        <div className="p-6 grid grid-cols-12 gap-5">
+          {/* Top Stats Row */}
+          <div className="col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden">
+              <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-blue-500/5 to-transparent"></div>
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-1">Total Revenue</div>
+                <div className="text-3xl font-bold mb-1 animate-fade-in">$498,250</div>
+                <div className="text-green-400 text-sm flex items-center">
+                  <TrendingUp size={14} className="mr-1" />
+                  15% vs last year
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden">
+              <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-purple-500/5 to-transparent"></div>
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-1">Avg. Transaction</div>
+                <div className="text-3xl font-bold mb-1 animate-fade-in">$849,600</div>
+                <div className="text-green-400 text-sm flex items-center">
+                  <TrendingUp size={14} className="mr-1" />
+                  8% vs last year
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden">
+              <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-green-500/5 to-transparent"></div>
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-1">Total Properties</div>
+                <div className="text-3xl font-bold mb-1 animate-fade-in">114</div>
+                <div className="flex text-sm mt-1 gap-3">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
+                    <span className="text-blue-400">37 Sold</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
+                    <span className="text-purple-400">77 Rented</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden">
+              <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-yellow-500/5 to-transparent"></div>
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-1">Team Ranking</div>
+                <div className="text-3xl font-bold mb-1 animate-fade-in">#2</div>
+                <div className="text-yellow-400 text-sm flex items-center">
+                  <Award size={14} className="mr-1" />
+                  Top 10% nationwide
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Main Content Row */}
+          <div className="col-span-12 lg:col-span-8 space-y-5">
+            {/* Yearly Sales Chart Card */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md">
+              <CardHeader className="p-5 pb-0">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-base font-semibold">Yearly Sales Transactions</CardTitle>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+                <div className="text-sm text-slate-400">
+                  Monthly performance for 2023
+                </div>
+              </CardHeader>
+              <CardContent className="p-5 pt-3">
+                <LineChartPulse data={yearlySalesData} height="h-64" />
+                <div className="flex justify-between text-sm pt-2">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
+                    <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
+                  </div>
+                  <div className="text-green-400 font-medium">
+                    +23% from previous year
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Progress Cards Row */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <Card className="bg-slate-900 border-slate-800 shadow-md">
+                <CardHeader className="p-5 pb-2">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-base font-semibold">Sales Transaction</CardTitle>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    On track to finish early
+                  </p>
+                </CardHeader>
+                <CardContent className="p-5 pt-2 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold animate-fade-in flex items-center">
+                      <span>{salesProgress}%</span>
+                      <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-blue-500/20 text-blue-400">
+                        <TrendingUp className="h-3 w-3 inline-block mr-1" />
+                        30%
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {renderSegments(salesProgress, 100)}
+                  
+                  <div className="grid grid-cols-2 gap-3 mt-1">
+                    <div className="bg-slate-800/50 p-3 rounded-lg">
+                      <div className="flex items-center text-blue-400 mb-1 text-sm">
+                        <Home size={14} className="mr-2" />
+                        <span>Sold</span>
+                      </div>
+                      <div className="text-2xl font-semibold">37</div>
+                    </div>
+                    <div className="bg-slate-800/50 p-3 rounded-lg">
+                      <div className="flex items-center text-purple-400 mb-1 text-sm">
+                        <Home size={14} className="mr-2" />
+                        <span>Rented</span>
+                      </div>
+                      <div className="text-2xl font-semibold">77</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-slate-900 border-slate-800 shadow-md">
+                <CardHeader className="p-5 pb-2">
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-base font-semibold">Commission Claims</CardTitle>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-5 pt-2 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="text-3xl font-bold animate-fade-in flex items-center">
+                      <span>{commissionProgress}%</span>
+                      <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-green-500/20 text-green-400">
+                        <TrendingUp className="h-3 w-3 inline-block mr-1" />
+                        12%
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {renderSegments(commissionProgress, 100)}
+                  
+                  <div className="grid grid-cols-2 gap-3 mt-1">
+                    <div className="bg-slate-800/50 p-3 rounded-lg">
+                      <div className="flex items-center text-slate-400 mb-1 text-sm">
+                        <DollarSign size={14} className="mr-1" />
+                        <span>Claimed</span>
+                      </div>
+                      <div className="text-2xl font-semibold text-white">$89K</div>
+                    </div>
+                    <div className="bg-slate-800/50 p-3 rounded-lg">
+                      <div className="flex items-center text-slate-400 mb-1 text-sm">
+                        <DollarSign size={14} className="mr-1" />
+                        <span>Target</span>
+                      </div>
+                      <div className="text-2xl font-semibold text-white">$120K</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          
+          {/* Right Sidebar */}
+          <div className="col-span-12 lg:col-span-4 space-y-5">
+            {/* Recent Activity Card */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md">
+              <CardHeader className="p-5 pb-2">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-5 pt-2 space-y-3 max-h-[250px] overflow-y-auto">
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
+                    <Avatar className="h-8 w-8 mr-3 bg-slate-700">
+                      <AvatarFallback className="text-[10px]">
                         {activity.agent.split(' ').map(name => name[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1">
+                    <div className="flex-1 text-sm">
                       <div className="font-medium">{activity.agent}</div>
-                      <div className="text-gray-400">
+                      <div className="text-slate-400 mt-0.5">
                         <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
                           {activity.action}
                         </span>
                         {" "}{activity.property} • {activity.value}
                       </div>
                     </div>
-                    <div className="text-gray-400 text-sm">{activity.time}</div>
+                    <div className="text-slate-400 text-xs">{activity.time}</div>
                   </div>
                 ))}
-              </div>
-            </div>
-            <div className="p-4 border-t border-gray-800">
-              <Button 
-                variant="outline" 
-                className="w-full" 
-                onClick={() => setShowMoreActivity(false)}
-              >
-                Close
-              </Button>
-            </div>
+                <div className="pt-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
+                    onClick={() => setShowMoreActivity(true)}
+                  >
+                    View all activity
+                    <ChevronDown size={14} className="ml-2" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Upcoming Appointments Card */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md">
+              <CardHeader className="p-5 pb-2">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="text-base font-semibold">Upcoming Appointments</CardTitle>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-5 pt-2 space-y-3">
+                <div className="flex items-center p-2 bg-slate-800/30 rounded-lg border-l-2 border-blue-500">
+                  <div className="h-8 w-8 bg-blue-500/30 rounded-lg flex items-center justify-center mr-3">
+                    <Calendar size={16} className="text-blue-400" />
+                  </div>
+                  <div className="flex-1 text-sm">
+                    <div className="font-medium">Property Viewing</div>
+                    <div className="text-slate-400">Today, 2:30 PM • Parkview Heights</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center p-2 bg-slate-800/30 rounded-lg border-l-2 border-green-500">
+                  <div className="h-8 w-8 bg-green-500/30 rounded-lg flex items-center justify-center mr-3">
+                    <Users size={16} className="text-green-400" />
+                  </div>
+                  <div className="flex-1 text-sm">
+                    <div className="font-medium">Client Meeting</div>
+                    <div className="text-slate-400">Tomorrow, 10:00 AM • John & Lisa Chen</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center p-2 bg-slate-800/30 rounded-lg border-l-2 border-purple-500">
+                  <div className="h-8 w-8 bg-purple-500/30 rounded-lg flex items-center justify-center mr-3">
+                    <DollarSign size={16} className="text-purple-400" />
+                  </div>
+                  <div className="flex-1 text-sm">
+                    <div className="font-medium">Contract Signing</div>
+                    <div className="text-slate-400">Mar 1, 4:00 PM • Garden Terrace</div>
+                  </div>
+                </div>
+                
+                <div className="pt-1">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full text-sm border-slate-700 hover:bg-slate-700/50" 
+                  >
+                    Add new appointment
+                    <Plus size={14} className="ml-2" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-      )}
-      
-      {/* Main Content - Optimized Layout */}
-      <div className="p-3 md:p-3 grid grid-cols-12 gap-3 h-[calc(100vh-56px)]">
-        {/* Left Sidebar - Metric Cards */}
-        <div className="col-span-3 grid grid-cols-1 gap-3 auto-rows-min">
-          {/* Total Revenue */}
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="py-3 px-3">
-              <div className="text-slate-400 text-xs mb-1">Total Revenue</div>
-              <div className="text-xl font-bold animate-fade-in">$498,250</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                15% vs last year
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Avg. Transaction */}
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="py-3 px-3">
-              <div className="text-slate-400 text-xs mb-1">Avg. Transaction</div>
-              <div className="text-xl font-bold animate-fade-in">$849,600</div>
-              <div className="text-green-400 text-xs flex items-center">
-                <TrendingUp size={10} className="mr-1" />
-                8% vs last year
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Total Properties */}
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="py-3 px-3">
-              <div className="text-slate-400 text-xs mb-1">Total Properties</div>
-              <div className="text-xl font-bold animate-fade-in">11</div>
-              <div className="flex text-xs mt-1">
-                <div className="mr-3 flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
-                  <span>4 Sold</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
-                  <span>7 Rented</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Team Ranking */}
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardContent className="py-3 px-3">
-              <div className="text-slate-400 text-xs mb-1">Team Ranking</div>
-              <div className="text-xl font-bold animate-fade-in">#2</div>
-              <div className="text-yellow-400 text-xs flex items-center">
-                <Award size={10} className="mr-1" />
-                Top 10% nationwide
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Commission Claims Card */}
-          <Card className="bg-black border-slate-800 shadow-lg">
-            <CardHeader className="p-3 pb-0">
-              <CardTitle className="text-sm font-semibold">Commission Claims</CardTitle>
-            </CardHeader>
-            <CardContent className="p-3 space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="text-xl font-bold animate-fade-in">
-                  {commissionProgress}%
-                </div>
-                
-                <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
-                  <TrendingUp className="text-green-400 mr-1" size={12} />
-                  <span className="text-xs">12%</span>
-                </div>
-              </div>
-              
-              <div className="flex">
-                {renderSegments(commissionProgress, 100)}
-              </div>
-              
-              <div className="flex justify-between text-xs">
-                <div>
-                  <div className="text-slate-400">Claimed</div>
-                  <div className="font-semibold">$89K</div>
-                </div>
-                <div>
-                  <div className="text-slate-400">Target</div>
-                  <div className="font-semibold">$120K</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        
-        {/* Main Content Area */}
-        <div className="col-span-9 grid grid-cols-3 gap-3 auto-rows-min">
-          {/* Yearly Sales Chart Card - Spans full width */}
-          <Card className="bg-black border-slate-800 shadow-lg col-span-3">
-            <CardHeader className="p-3 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-semibold">Yearly Sales Transactions</CardTitle>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-3">
-              <div className="text-xs text-slate-400 mb-1">
-                Monthly performance for 2023
-              </div>
-              <LineChartPulse data={yearlySalesData} height="h-40" />
-              <div className="flex justify-between text-xs pt-1">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-blue-400 mr-1"></div>
-                  <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
-                </div>
-                <div className="text-green-400">
-                  +23% from previous year
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Recent Activity Card */}
-          <Card className="bg-black border-slate-800 shadow-lg col-span-1">
-            <CardHeader className="p-3 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-3 space-y-2 max-h-[230px] overflow-y-auto">
-              {recentActivity.slice(0, 3).map((activity, index) => (
-                <div key={index} className="flex items-center border-b border-slate-800 pb-2">
-                  <Avatar className="h-6 w-6 mr-2 bg-slate-700">
-                    <AvatarFallback className="text-[9px]">
-                      {activity.agent.split(' ').map(name => name[0]).join('')}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 text-xs">
-                    <div className="font-medium">{activity.agent}</div>
-                    <div className="text-slate-400 mt-0.5">
-                      <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                        {activity.action}
-                      </span>
-                      {" "}{activity.property}
-                    </div>
-                  </div>
-                </div>
-              ))}
-              <div className="pt-1">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="w-full text-xs border border-slate-800 rounded-md hover:bg-slate-800" 
-                  onClick={() => setShowMoreActivity(true)}
-                >
-                  Show more
-                  <ChevronDown size={12} className="ml-1" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Sales Transaction Progress Card */}
-          <Card className="bg-black border-slate-800 shadow-lg col-span-1">
-            <CardHeader className="p-3 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-semibold">Sales Transaction</CardTitle>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-              <p className="text-slate-400 text-xs">
-                On track to finish early
-              </p>
-            </CardHeader>
-            <CardContent className="p-3 space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="text-xl font-bold animate-fade-in">
-                  {salesProgress}%
-                </div>
-                
-                <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
-                  <TrendingUp className="text-white mr-1" size={10} />
-                  <span className="text-xs">30%</span>
-                </div>
-              </div>
-              
-              <div className="flex">
-                {renderSegments(salesProgress, 100)}
-              </div>
-              
-              <div className="grid grid-cols-2 gap-2">
-                <div className="bg-slate-800/50 p-2 rounded-lg">
-                  <div className="flex items-center text-blue-400 mb-1 text-xs">
-                    <Home size={10} className="mr-1" />
-                    <span>Sold</span>
-                  </div>
-                  <div className="text-base font-semibold">4</div>
-                </div>
-                <div className="bg-slate-800/50 p-2 rounded-lg">
-                  <div className="flex items-center text-purple-400 mb-1 text-xs">
-                    <Home size={10} className="mr-1" />
-                    <span>Rented</span>
-                  </div>
-                  <div className="text-base font-semibold">7</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Upcoming Appointments Card */}
-          <Card className="bg-black border-slate-800 shadow-lg col-span-1">
-            <CardHeader className="p-3 pb-0">
-              <div className="flex justify-between items-center">
-                <CardTitle className="text-sm font-semibold">Appointments</CardTitle>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent className="p-3 space-y-2">
-              <div className="flex items-center border-l-2 border-blue-500 pl-2">
-                <div className="h-5 w-5 bg-blue-500/30 rounded-full flex items-center justify-center mr-2">
-                  <Calendar size={10} />
-                </div>
-                <div className="flex-1 text-xs">
-                  <div className="font-medium">Property Viewing</div>
-                  <div className="text-slate-400">Today, 2:30 PM</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center border-l-2 border-green-500 pl-2">
-                <div className="h-5 w-5 bg-green-500/30 rounded-full flex items-center justify-center mr-2">
-                  <Users size={10} />
-                </div>
-                <div className="flex-1 text-xs">
-                  <div className="font-medium">Client Meeting</div>
-                  <div className="text-slate-400">Tomorrow, 10:00 AM</div>
-                </div>
-              </div>
-              
-              <div className="flex items-center border-l-2 border-purple-500 pl-2">
-                <div className="h-5 w-5 bg-purple-500/30 rounded-full flex items-center justify-center mr-2">
-                  <DollarSign size={10} />
-                </div>
-                <div className="flex-1 text-xs">
-                  <div className="font-medium">Contract Signing</div>
-                  <div className="text-slate-400">Mar 1, 4:00 PM</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
