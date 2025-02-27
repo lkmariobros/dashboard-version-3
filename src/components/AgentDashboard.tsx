@@ -306,16 +306,38 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Main Chart Area */}
-            <div className="main-chart">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
-                {/* Empty placeholder area as shown in your design */}
-              </div>
-            </div>
-            
             {/* Right Column - Commission Claims */}
             <div className="commission-claims">
               <CommissionClaimsCard progress={commissionProgress} />
+            </div>
+            
+            {/* Yearly Sales Transactions */}
+            <div className="yearly-sales">
+              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
+                <div className="p-4 pb-0">
+                  <div className="flex justify-between items-center">
+                    <div className="text-lg font-semibold">Yearly Sales Transactions</div>
+                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="text-sm text-slate-400">
+                    Monthly performance for 2023
+                  </div>
+                </div>
+                <div className="p-4 pt-3">
+                  <LineChartPulse data={yearlySalesData} height="h-56" />
+                  <div className="flex justify-between text-sm pt-2">
+                    <div className="flex items-center">
+                      <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
+                      <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
+                    </div>
+                    <div className="text-green-400 font-medium">
+                      +23% from previous year
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             
             {/* Right Column - Sales Transaction */}
@@ -368,35 +390,6 @@ const AgentDashboard = () => {
                     <div>
                       <div className="font-medium">Client Meeting</div>
                       <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Yearly Sales Transactions */}
-            <div className="yearly-sales">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
-                <div className="p-4 pb-0">
-                  <div className="flex justify-between items-center">
-                    <div className="text-lg font-semibold">Yearly Sales Transactions</div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <div className="text-sm text-slate-400">
-                    Monthly performance for 2023
-                  </div>
-                </div>
-                <div className="p-4 pt-3">
-                  <LineChartPulse data={yearlySalesData} height="h-56" />
-                  <div className="flex justify-between text-sm pt-2">
-                    <div className="flex items-center">
-                      <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-400 mr-2"></div>
-                      <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
-                    </div>
-                    <div className="text-green-400 font-medium">
-                      +23% from previous year
                     </div>
                   </div>
                 </div>
