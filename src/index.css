@@ -87,7 +87,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  min-height: 235px; /* Taller than other cards */
+  height: 100%;
 }
 
 .commission-claims-card::before {
@@ -123,7 +123,7 @@
 
 /* Welcome message styles */
 .welcome-message {
-  padding: 0.5rem 0.25rem;
+  padding: 0.5rem 0;
 }
 
 .welcome-message h2 {
@@ -143,49 +143,55 @@
 /* Dashboard Grid Layout */
 .grid-dashboard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(min-content, max-content);
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
     "yearly-sales yearly-sales yearly-sales sales-transaction"
     "yearly-sales yearly-sales yearly-sales upcoming-appointments"
     "recent-activity recent-activity recent-activity recent-activity";
-  gap: 16px;
-  height: calc(100% - 16px);
+  gap: 20px;
+  padding: 4px;
+}
+
+/* Card container styles to ensure consistent appearance */
+.dashboard-card {
+  background: #1a1f2c;
+  border: 1px solid #2a3143;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .welcome { 
   grid-area: welcome;
-  min-height: 75px;
+  display: flex;
+  align-items: center;
 }
 
 .metrics { 
   grid-area: metrics; 
-  height: 100px;
 }
 
 .yearly-sales { 
   grid-area: yearly-sales; 
-  min-height: 300px;
 }
 
 .commission-claims { 
   grid-area: commission-claims; 
-  min-height: 235px;
+  height: 100%;
 }
 
 .sales-transaction { 
   grid-area: sales-transaction; 
-  min-height: 100px;
 }
 
 .upcoming-appointments { 
   grid-area: upcoming-appointments; 
-  min-height: 100px;
 }
 
 .recent-activity { 
   grid-area: recent-activity; 
-  min-height: 200px;
 }

@@ -267,7 +267,7 @@ const AgentDashboard = () => {
         )}
         
         {/* Dashboard Content - Using CSS Grid with Fixed Areas */}
-        <div className="p-4 h-[calc(100vh-4rem)] overflow-auto">
+        <div className="p-6 h-[calc(100vh-4rem)] overflow-auto">
           <div className="grid-dashboard">
             {/* Welcome Message */}
             <div className="welcome">
@@ -279,9 +279,9 @@ const AgentDashboard = () => {
             
             {/* Top Metrics Row - Now moved below welcome */}
             <div className="metrics">
-              <div className="grid grid-cols-3 gap-4 h-full">
+              <div className="grid grid-cols-3 gap-6 h-full">
                 {/* Total Revenue */}
-                <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+                <div className="dashboard-card">
                   <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
                     <div className="text-slate-400 text-xs">Total Revenue</div>
                     <div className="text-2xl font-bold animate-fade-in">$498,250</div>
@@ -293,7 +293,7 @@ const AgentDashboard = () => {
                 </div>
                 
                 {/* Avg Transaction */}
-                <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+                <div className="dashboard-card">
                   <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
                     <div className="text-slate-400 text-xs">Avg. Transaction</div>
                     <div className="text-2xl font-bold animate-fade-in">$849,600</div>
@@ -305,7 +305,7 @@ const AgentDashboard = () => {
                 </div>
                 
                 {/* Total Properties */}
-                <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+                <div className="dashboard-card">
                   <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
                     <div className="text-slate-400 text-xs">Total Properties</div>
                     <div className="text-2xl font-bold animate-fade-in">114</div>
@@ -331,7 +331,7 @@ const AgentDashboard = () => {
             
             {/* Yearly Sales Transactions */}
             <div className="yearly-sales">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
+              <div className="dashboard-card h-full">
                 <div className="p-4 pb-0">
                   <div className="flex justify-between items-center">
                     <div className="text-lg font-semibold">Yearly Sales Transactions</div>
@@ -360,7 +360,7 @@ const AgentDashboard = () => {
             
             {/* Right Column - Sales Transaction */}
             <div className="sales-transaction">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
+              <div className="dashboard-card h-full">
                 <div className="p-4 pb-0">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Sales Transaction</div>
@@ -390,7 +390,7 @@ const AgentDashboard = () => {
             
             {/* Right Column - Upcoming Appointments */}
             <div className="upcoming-appointments">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
+              <div className="dashboard-card h-full">
                 <div className="p-4 pb-0">
                   <div className="text-lg font-semibold">Upcoming Appointments</div>
                 </div>
@@ -416,7 +416,7 @@ const AgentDashboard = () => {
             
             {/* Recent Activity */}
             <div className="recent-activity">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
+              <div className="dashboard-card h-full">
                 <div className="p-4 pb-2">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Recent Activity</div>
