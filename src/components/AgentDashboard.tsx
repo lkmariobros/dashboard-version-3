@@ -14,13 +14,15 @@ import {
   Award,
   ChevronDown,
   ChevronUp,
-  X
+  X,
+  LineChart
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { LineChartPulse } from "./LineChartPulse";
 
 const AgentDashboard = () => {
   // Animation states for progress indicators
@@ -53,6 +55,22 @@ const AgentDashboard = () => {
     { agent: "Emma Brown", action: "Sold", property: "Golden Gate Condos", value: "$1.5M", time: "2w" },
     { agent: "Liam Garcia", action: "Rented", property: "Sky Towers", value: "$6.9K", time: "3w" },
     { agent: "Ava Wilson", action: "Sold", property: "Silver Lake Estate", value: "$4.3M", time: "3w" },
+  ];
+  
+  // Sales chart data - yearly sales transactions
+  const yearlySalesData = [
+    { date: new Date("2023-01-15"), value: 4 },
+    { date: new Date("2023-02-15"), value: 6 },
+    { date: new Date("2023-03-15"), value: 8 },
+    { date: new Date("2023-04-15"), value: 7 },
+    { date: new Date("2023-05-15"), value: 9 },
+    { date: new Date("2023-06-15"), value: 12 },
+    { date: new Date("2023-07-15"), value: 11 },
+    { date: new Date("2023-08-15"), value: 13 },
+    { date: new Date("2023-09-15"), value: 10 },
+    { date: new Date("2023-10-15"), value: 8 },
+    { date: new Date("2023-11-15"), value: 11 },
+    { date: new Date("2023-12-15"), value: 15 },
   ];
   
   // Animate progress bars on component mount
@@ -229,8 +247,35 @@ const AgentDashboard = () => {
           </Card>
         </div>
         
-        {/* Recent Activity Card - Swapped with Sales Transaction */}
-        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4 lg:row-span-2">
+        {/* Yearly Sales Chart Card */}
+        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-8">
+          <CardHeader className="pb-2">
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-sm font-semibold">Yearly Sales Transactions</CardTitle>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                <MoreHorizontal className="h-5 w-5" />
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xs text-slate-400 mb-2">
+              Monthly performance for 2023
+            </div>
+            <LineChartPulse data={yearlySalesData} height="h-56" />
+            <div className="flex justify-between text-xs pt-2">
+              <div className="flex items-center">
+                <div className="w-2 h-2 rounded-full bg-blue-400 mr-1"></div>
+                <span>Total: {yearlySalesData.reduce((sum, item) => sum + item.value, 0)} Properties</span>
+              </div>
+              <div className="text-green-400">
+                +23% from previous year
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        {/* Recent Activity Card - Now in a smaller column */}
+        <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
               <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
@@ -239,7 +284,7 @@ const AgentDashboard = () => {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-3 max-h-[calc(100%-5rem)] overflow-y-auto">
+          <CardContent className="space-y-3 max-h-[250px] overflow-y-auto">
             {recentActivity.map((activity, index) => (
               <div key={index} className="flex items-center border-b border-slate-800 pb-2">
                 <Avatar className="h-8 w-8 mr-3 bg-slate-700">
@@ -351,7 +396,7 @@ const AgentDashboard = () => {
           </CardContent>
         </Card>
         
-        {/* Sales Transaction Progress Card - Swapped with Recent Activity */}
+        {/* Sales Transaction Progress Card */}
         <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
