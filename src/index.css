@@ -250,8 +250,7 @@
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
     "yearly-sales yearly-sales yearly-sales sales-transaction"
-    "yearly-sales yearly-sales yearly-sales upcoming-appointments"
-    "recent-activity recent-activity recent-activity recent-activity";
+    "recent-activity recent-activity recent-activity upcoming-appointments";
   gap: 20px;
   padding: 4px;
 }
@@ -297,9 +296,7 @@
 
 .recent-activity { 
   grid-area: recent-activity; 
-  width: 75% !important; /* Set width to match yearly-sales (3/4 columns) */
   height: 400px !important; /* Match height with upcoming appointments */
-  margin: 0 auto; /* Center the card */
 }
 
 /* Recent activity custom styling */
