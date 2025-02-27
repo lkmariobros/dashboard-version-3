@@ -11,11 +11,11 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
   // Progress bar segments renderer specific to Commission Claims
   const renderCommissionSegments = (current: number, count = 10) => {
     return (
-      <div className="flex w-full gap-1">
+      <div className="flex w-full gap-1 my-2">
         {Array.from({ length: count }).map((_, i) => (
           <div
             key={i}
-            className={`h-1.5 flex-1 rounded-full bg-purple-500 opacity-40`}
+            className="h-1.5 flex-1 rounded-full bg-purple-500"
             style={{
               opacity: i < Math.floor((current / 100) * count) ? 1 : 0.4,
               transition: `opacity 300ms ease-out ${i * 50}ms, background-color 300ms ease-out`
@@ -32,20 +32,20 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
         <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
       </CardHeader>
       <CardContent className="commission-claims-content p-5 pt-3">
-        <div className="flex items-center gap-4 mb-4">
+        <div className="flex items-center gap-3 mb-1">
           <div className="text-5xl font-bold text-purple-400 animate-fade-in">
             {progress}%
           </div>
-          <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-3 py-2 rounded-full">
-            <TrendingUp size={16} className="mr-1.5" />
+          <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-2.5 py-1.5 rounded-full">
+            <TrendingUp size={14} className="mr-1" />
             12%
           </div>
         </div>
         
         {renderCommissionSegments(progress)}
         
-        <div className="mt-5 text-sm text-slate-400">
-          <div className="flex justify-between mb-2.5">
+        <div className="mt-4 text-sm text-slate-400">
+          <div className="flex justify-between mb-2">
             <span>Current Period</span>
             <span className="font-medium text-white">$157,240</span>
           </div>
