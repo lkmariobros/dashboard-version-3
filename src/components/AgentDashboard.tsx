@@ -292,9 +292,61 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Commission Claims Card - Now taller with row span */}
-          <div className="col-span-4 row-span-2">
+          {/* Commission Claims Card */}
+          <div className="col-span-4 flex flex-col gap-2">
             <CommissionClaimsCard progress={commissionProgress} />
+            
+            {/* Sales Transaction Card - Moved directly under Commission Claims */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+              <div className="p-4 pb-0">
+                <div className="flex justify-between items-center">
+                  <div className="text-base font-semibold">Sales Transaction</div>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <MoreHorizontal className="h-4 w-4" />
+                  </Button>
+                </div>
+                <p className="text-slate-400 text-sm">
+                  On track to finish early
+                </p>
+              </div>
+              <div className="p-4 pt-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-xl font-bold animate-fade-in">
+                    {salesProgress}%
+                  </div>
+                  <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
+                    <TrendingUp className="h-3 w-3 mr-1" />
+                    30%
+                  </div>
+                </div>
+                
+                {renderSegments(salesProgress, 100)}
+              </div>
+            </div>
+            
+            {/* Upcoming Appointments Card - Moved below Sales Transaction */}
+            <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+              <div className="p-4 pb-0">
+                <div className="text-lg font-semibold">Upcoming Appointments</div>
+              </div>
+              <div className="p-4 pt-2 text-sm">
+                <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
+                  <Calendar size={14} className="text-blue-400 mr-2" />
+                  <div>
+                    <div className="font-medium">Property Viewing</div>
+                    <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center border-l-2 border-green-500 pl-3">
+                  <Users size={14} className="text-green-400 mr-2" />
+                  <div>
+                    <div className="font-medium">Client Meeting</div>
+                    <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           
           <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
@@ -364,58 +416,6 @@ const AgentDashboard = () => {
                   View all activity
                   <ChevronDown size={14} className="ml-2" />
                 </Button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="col-span-4 space-y-2">
-            <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <div className="p-4 pb-0">
-                <div className="text-lg font-semibold">Upcoming Appointments</div>
-              </div>
-              <div className="p-4 pt-2 text-sm">
-                <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
-                  <Calendar size={14} className="text-blue-400 mr-2" />
-                  <div>
-                    <div className="font-medium">Property Viewing</div>
-                    <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center border-l-2 border-green-500 pl-3">
-                  <Users size={14} className="text-green-400 mr-2" />
-                  <div>
-                    <div className="font-medium">Client Meeting</div>
-                    <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
-              <div className="p-4 pb-0">
-                <div className="flex justify-between items-center">
-                  <div className="text-base font-semibold">Sales Transaction</div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </Button>
-                </div>
-                <p className="text-slate-400 text-sm">
-                  On track to finish early
-                </p>
-              </div>
-              <div className="p-4 pt-2">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-xl font-bold animate-fade-in">
-                    {salesProgress}%
-                  </div>
-                  <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
-                    <TrendingUp className="h-3 w-3 mr-1" />
-                    30%
-                  </div>
-                </div>
-                
-                {renderSegments(salesProgress, 100)}
               </div>
             </div>
           </div>
