@@ -35,29 +35,29 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
   };
 
   return (
-    <Card className="commission-claims-card bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
-      <CardHeader className="commission-claims-header p-5 pb-2">
+    <Card className="commission-claims-card">
+      <CardHeader className="commission-claims-header p-6 pb-3">
         <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
       </CardHeader>
-      <CardContent className="commission-claims-content p-5 pt-3">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="text-4xl font-bold animate-fade-in">
+      <CardContent className="commission-claims-content p-6 pt-4">
+        <div className="flex items-center gap-4 mb-5">
+          <div className="text-5xl font-bold animate-fade-in">
             {progress}%
           </div>
-          <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-2.5 py-1.5 rounded-full">
-            <TrendingUp size={14} className="mr-1.5" />
+          <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-3 py-2 rounded-full">
+            <TrendingUp size={16} className="mr-1.5" />
             12%
           </div>
         </div>
         
         {renderCommissionSegments(progress)}
         
-        <div className="mt-4 text-sm text-slate-400">
-          <div className="flex justify-between">
+        <div className="mt-5 text-sm text-slate-400">
+          <div className="flex justify-between mb-2">
             <span>Current Period</span>
             <span className="font-medium text-white">$157,240</span>
           </div>
-          <div className="flex justify-between mt-1.5">
+          <div className="flex justify-between">
             <span>Previous Period</span>
             <span className="font-medium text-slate-300">$135,830</span>
           </div>
