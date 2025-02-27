@@ -27,6 +27,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { LineChartPulse } from "./LineChartPulse";
+import CommissionClaimsCard from "./CommissionClaimsCard";
 
 const AgentDashboard = () => {
   // Animation states for progress indicators
@@ -107,7 +108,7 @@ const AgentDashboard = () => {
     };
   }, []);
   
-  // Progress bar segments renderer
+  // Progress bar segments renderer for Sales Transaction only
   const renderSegments = (current, total, count = 10) => {
     const segments = [];
     const filledSegments = Math.floor((current / 100) * count);
@@ -267,7 +268,7 @@ const AgentDashboard = () => {
           {/* Top Stats - Three cards in a row */}
           <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
             {/* Total Revenue - More compact with larger margins */}
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+            <Card className="revenue-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
               <CardContent className="p-4">
                 <div className="text-slate-400 text-sm mb-1.5">Total Revenue</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">$498,250</div>
@@ -279,7 +280,7 @@ const AgentDashboard = () => {
             </Card>
             
             {/* Avg Transaction - More compact with larger margins */}
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+            <Card className="transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
               <CardContent className="p-4">
                 <div className="text-slate-400 text-sm mb-1.5">Avg. Transaction</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">$849,600</div>
@@ -291,7 +292,7 @@ const AgentDashboard = () => {
             </Card>
             
             {/* Total Properties - More compact with larger margins */}
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
+            <Card className="properties-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
               <CardContent className="p-4">
                 <div className="text-slate-400 text-sm mb-1.5">Total Properties</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">114</div>
@@ -309,41 +310,13 @@ const AgentDashboard = () => {
             </Card>
           </div>
           
-          {/* Commission Claims Card - Larger with increased height and width */}
+          {/* Commission Claims Card - Now using independent component */}
           <div className="col-span-12 lg:col-span-4">
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md h-full">
-              <CardHeader className="p-5 pb-2">
-                <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
-              </CardHeader>
-              <CardContent className="p-5 pt-3">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="text-4xl font-bold animate-fade-in">
-                    {commissionProgress}%
-                  </div>
-                  <div className="text-green-400 text-sm flex items-center bg-green-500/10 px-2.5 py-1.5 rounded-full">
-                    <TrendingUp size={14} className="mr-1.5" />
-                    12%
-                  </div>
-                </div>
-                
-                {renderSegments(commissionProgress, 100)}
-                
-                <div className="mt-4 text-sm text-slate-400">
-                  <div className="flex justify-between">
-                    <span>Current Period</span>
-                    <span className="font-medium text-white">$157,240</span>
-                  </div>
-                  <div className="flex justify-between mt-1.5">
-                    <span>Previous Period</span>
-                    <span className="font-medium text-slate-300">$135,830</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <CommissionClaimsCard progress={commissionProgress} />
           </div>
           
           {/* Yearly Sales Chart Card */}
-          <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12 lg:col-span-8">
+          <Card className="sales-chart-card bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12 lg:col-span-8">
             <CardHeader className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-lg font-semibold">Yearly Sales Transactions</CardTitle>
@@ -372,7 +345,7 @@ const AgentDashboard = () => {
           {/* Right Column with Appointments and Sales Transaction */}
           <div className="col-span-12 lg:col-span-4 space-y-4">
             {/* Upcoming Appointments Card */}
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+            <Card className="appointments-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <CardHeader className="p-4 pb-0">
                 <CardTitle className="text-lg font-semibold">Upcoming Appointments</CardTitle>
               </CardHeader>
@@ -396,7 +369,7 @@ const AgentDashboard = () => {
             </Card>
             
             {/* Sales Transaction */}
-            <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+            <Card className="sales-transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <CardHeader className="p-4 pb-0">
                 <div className="flex justify-between items-center">
                   <CardTitle className="text-base font-semibold">Sales Transaction</CardTitle>
@@ -425,7 +398,7 @@ const AgentDashboard = () => {
           </div>
           
           {/* Recent Activity Card */}
-          <Card className="bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12">
+          <Card className="activity-card bg-slate-900 border border-slate-800 rounded-xl shadow-md col-span-12">
             <CardHeader className="p-4 pb-2">
               <div className="flex justify-between items-center">
                 <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
