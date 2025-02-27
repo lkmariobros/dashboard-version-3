@@ -166,51 +166,36 @@ const AgentDashboard = () => {
           </Card>
         </div>
         
-        {/* Sales Transaction Progress Card */}
+        {/* Recent Activity Card - Swapped with Sales Transaction */}
         <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-2 lg:col-span-4 lg:row-span-2">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
-              <CardTitle className="text-sm font-semibold">Sales Transaction</CardTitle>
+              <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
               <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
-            <p className="text-slate-400 text-xs">
-              On track to finish three days early
-            </p>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="text-3xl font-bold animate-fade-in">
-                {salesProgress}%
-              </div>
-              
-              <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
-                <TrendingUp className="text-white mr-1" size={12} />
-                <span className="text-xs">30%</span>
-              </div>
-            </div>
-            
-            <div className="flex">
-              {renderSegments(salesProgress, 100)}
-            </div>
-            
-            <div className="grid grid-cols-2 gap-2">
-              <div className="bg-slate-800/50 p-2 rounded-lg">
-                <div className="flex items-center text-blue-400 mb-1 text-xs">
-                  <Home size={12} className="mr-1" />
-                  <span>Properties Sold</span>
+          <CardContent className="space-y-2">
+            {recentActivity.map((activity, index) => (
+              <div key={index} className="flex items-center border-b border-slate-800 pb-1">
+                <Avatar className="h-6 w-6 mr-2 bg-blue-500">
+                  <AvatarFallback className="text-[10px]">
+                    <Users size={12} />
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 text-xs">
+                  <div className="font-medium">{activity.agent}</div>
+                  <div className="text-slate-400">
+                    <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                      {activity.action}
+                    </span>
+                    {" "}{activity.property} • {activity.value}
+                  </div>
                 </div>
-                <div className="text-xl font-semibold">4</div>
+                <div className="text-slate-400 text-xs">{activity.time}</div>
               </div>
-              <div className="bg-slate-800/50 p-2 rounded-lg">
-                <div className="flex items-center text-purple-400 mb-1 text-xs">
-                  <Home size={12} className="mr-1" />
-                  <span>Properties Rented</span>
-                </div>
-                <div className="text-xl font-semibold">7</div>
-              </div>
-            </div>
+            ))}
           </CardContent>
         </Card>
         
@@ -292,36 +277,51 @@ const AgentDashboard = () => {
           </CardContent>
         </Card>
         
-        {/* Recent Activity Card */}
+        {/* Sales Transaction Progress Card - Swapped with Recent Activity */}
         <Card className="bg-black border-slate-800 shadow-lg col-span-1 md:col-span-1 lg:col-span-4">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
-              <CardTitle className="text-sm font-semibold">Recent Activity</CardTitle>
+              <CardTitle className="text-sm font-semibold">Sales Transaction</CardTitle>
               <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
             </div>
+            <p className="text-slate-400 text-xs">
+              On track to finish three days early
+            </p>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center border-b border-slate-800 pb-1">
-                <Avatar className="h-6 w-6 mr-2 bg-blue-500">
-                  <AvatarFallback className="text-[10px]">
-                    <Users size={12} />
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1 text-xs">
-                  <div className="font-medium">{activity.agent}</div>
-                  <div className="text-slate-400">
-                    <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                      {activity.action}
-                    </span>
-                    {" "}{activity.property} • {activity.value}
-                  </div>
-                </div>
-                <div className="text-slate-400 text-xs">{activity.time}</div>
+          <CardContent className="space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="text-3xl font-bold animate-fade-in">
+                {salesProgress}%
               </div>
-            ))}
+              
+              <div className="flex items-center bg-slate-800/50 px-2 py-0.5 rounded-full">
+                <TrendingUp className="text-white mr-1" size={12} />
+                <span className="text-xs">30%</span>
+              </div>
+            </div>
+            
+            <div className="flex">
+              {renderSegments(salesProgress, 100)}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2">
+              <div className="bg-slate-800/50 p-2 rounded-lg">
+                <div className="flex items-center text-blue-400 mb-1 text-xs">
+                  <Home size={12} className="mr-1" />
+                  <span>Properties Sold</span>
+                </div>
+                <div className="text-xl font-semibold">4</div>
+              </div>
+              <div className="bg-slate-800/50 p-2 rounded-lg">
+                <div className="flex items-center text-purple-400 mb-1 text-xs">
+                  <Home size={12} className="mr-1" />
+                  <span>Properties Rented</span>
+                </div>
+                <div className="text-xl font-semibold">7</div>
+              </div>
+            </div>
           </CardContent>
         </Card>
         
