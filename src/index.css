@@ -79,16 +79,15 @@
 /* Custom styles for the Commission Claims card */
 .commission-claims-card {
   background: linear-gradient(145deg, #1e293b, #111827);
-  border: 4px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(99, 102, 241, 0.3);
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 
-              0 0 0 6px rgba(99, 102, 241, 0.05),
+              0 0 0 2px rgba(99, 102, 241, 0.05),
               inset 0 1px 1px 0 rgba(255, 255, 255, 0.05);
-  transform: scale(1.02);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  height: 100%;
+  height: 100px; /* Set to match other cards */
 }
 
 .commission-claims-card::before {

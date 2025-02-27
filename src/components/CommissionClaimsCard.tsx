@@ -27,12 +27,12 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
   };
 
   return (
-    <Card className="commission-claims-card h-full bg-slate-900 border-slate-800">
-      <CardHeader className="commission-claims-header p-6 pb-3">
+    <Card className="commission-claims-card bg-slate-900 border-slate-800">
+      <CardHeader className="commission-claims-header p-4 pb-2">
         <CardTitle className="text-xl font-semibold">Commission Claims</CardTitle>
       </CardHeader>
-      <CardContent className="commission-claims-content p-6 pt-4">
-        <div className="flex items-center gap-4 mb-5">
+      <CardContent className="commission-claims-content p-4 pt-2">
+        <div className="flex items-center gap-4 mb-4">
           <div className="text-5xl font-bold text-purple-400 animate-fade-in">
             {progress}%
           </div>
@@ -44,7 +44,7 @@ const CommissionClaimsCard = ({ progress }: CommissionClaimsCardProps) => {
         
         {renderCommissionSegments(progress)}
         
-        <div className="mt-5 text-sm text-slate-400">
+        <div className="mt-4 text-sm text-slate-400">
           <div className="flex justify-between mb-2">
             <span>Current Period</span>
             <span className="font-medium text-white">$157,240</span>

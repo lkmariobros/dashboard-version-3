@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   MoreHorizontal, 
@@ -58,7 +57,6 @@ const AgentDashboard = () => {
     { agent: "Ava Wilson", action: "Sold", property: "Silver Lake Estate", value: "$4.3M", time: "3w" },
   ];
   
-  // Sales chart data - yearly sales transactions
   const yearlySalesData = [
     { date: new Date("2023-01-15"), value: 4 },
     { date: new Date("2023-02-15"), value: 6 },
@@ -74,7 +72,6 @@ const AgentDashboard = () => {
     { date: new Date("2023-12-15"), value: 15 },
   ];
   
-  // Sidebar navigation items
   const navItems = [
     { icon: Home, label: "Dashboard", active: true },
     { icon: BarChart3, label: "Analytics" },
@@ -83,7 +80,6 @@ const AgentDashboard = () => {
     { icon: Settings, label: "Settings" },
   ];
   
-  // Animate progress bars on component mount
   useEffect(() => {
     const animateProgress = (setter, target, speed = 20) => {
       let current = 0;
@@ -108,7 +104,6 @@ const AgentDashboard = () => {
     };
   }, []);
   
-  // Progress bar segments renderer for Sales Transaction only
   const renderSegments = (current, total, count = 10) => {
     const segments = [];
     const filledSegments = Math.floor((current / 100) * count);
@@ -136,11 +131,9 @@ const AgentDashboard = () => {
 
   return (
     <div className="bg-black text-white min-h-screen flex overflow-hidden">
-      {/* Sidebar */}
       <div className={`bg-slate-900 border-r border-slate-800 transition-all duration-300 ${
         sidebarCollapsed ? 'w-16' : 'w-60'
       } flex flex-col h-screen fixed left-0 top-0 z-30`}>
-        {/* Sidebar Header */}
         <div className="h-16 border-b border-slate-800 flex items-center justify-between px-4">
           {!sidebarCollapsed && <h1 className="font-bold text-lg">Agent Portal</h1>}
           <Button 
@@ -153,7 +146,6 @@ const AgentDashboard = () => {
           </Button>
         </div>
         
-        {/* Sidebar Navigation */}
         <div className="flex-1 py-4">
           <ul className="space-y-2 px-2">
             {navItems.map((item, index) => (
@@ -172,7 +164,6 @@ const AgentDashboard = () => {
           </ul>
         </div>
         
-        {/* Sidebar Footer */}
         <div className="p-4 border-t border-slate-800">
           <div className="flex items-center">
             <Avatar className="h-9 w-9 bg-gradient-to-br from-blue-500 to-purple-600">
@@ -188,11 +179,9 @@ const AgentDashboard = () => {
         </div>
       </div>
       
-      {/* Main Content */}
       <div className={`flex-1 transition-all duration-300 ${
         sidebarCollapsed ? 'ml-16' : 'ml-60'
       }`}>
-        {/* Top Header */}
         <header className="h-16 bg-black border-b border-slate-800 sticky top-0 z-20 flex items-center justify-between px-6">
           <div className="flex items-center">
             <h1 className="text-xl font-bold">Dashboard</h1>
@@ -217,7 +206,6 @@ const AgentDashboard = () => {
           </div>
         </header>
         
-        {/* Activity Modal */}
         {showMoreActivity && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="bg-slate-900 rounded-lg shadow-lg w-full max-w-2xl">
@@ -263,9 +251,7 @@ const AgentDashboard = () => {
           </div>
         )}
         
-        {/* Dashboard Content */}
         <div className="p-4 grid grid-cols-12 gap-2">
-          {/* Top Row - Metric Cards */}
           <div className="col-span-3 bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
             <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
               <div className="text-slate-400 text-xs">Total Revenue</div>
@@ -305,12 +291,10 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Commission Claims Card */}
-          <div className="col-span-4 row-span-3">
+          <div className="col-span-4">
             <CommissionClaimsCard progress={commissionProgress} />
           </div>
           
-          {/* Yearly Sales Chart Card - Now directly below the top row with no gap */}
           <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
             <div className="p-4 pb-0">
               <div className="flex justify-between items-center">
@@ -337,7 +321,6 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Recent Activity Card */}
           <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
             <div className="p-4 pb-2">
               <div className="flex justify-between items-center">
@@ -383,9 +366,7 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Right Column with Appointments and Sales Transaction */}
           <div className="col-span-4 space-y-2">
-            {/* Upcoming Appointments Card */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <div className="p-4 pb-0">
                 <div className="text-lg font-semibold">Upcoming Appointments</div>
@@ -409,7 +390,6 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Sales Transaction */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <div className="p-4 pb-0">
                 <div className="flex justify-between items-center">
