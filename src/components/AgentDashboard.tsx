@@ -395,10 +395,10 @@ const AgentDashboard = () => {
               <UpcomingAppointmentsCard />
             </div>
             
-            {/* Recent Activity */}
+            {/* Recent Activity - Adjusted to match Yearly Sales width and Upcoming Appointments height */}
             <div className="recent-activity">
               <div className="dashboard-card h-full">
-                <div className="p-4 pb-2">
+                <div className="p-4 pb-2 border-b border-slate-800">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Recent Activity</div>
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
@@ -407,28 +407,30 @@ const AgentDashboard = () => {
                   </div>
                 </div>
                 <div className="p-4 pt-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {recentActivity.map((activity, index) => (
-                      <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
-                        <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
-                          <AvatarFallback className="text-[10px]">
-                            {activity.agent.split(' ').map(name => name[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="flex-1 text-sm">
-                          <div className="font-medium">{activity.agent}</div>
-                          <div className="text-slate-400 mt-0.5">
-                            <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
-                              {activity.action}
-                            </span>
-                            {" "}{activity.property} • {activity.value}
+                  <div className="recent-activity-items">
+                    <div className="grid grid-cols-1 gap-3">
+                      {recentActivity.map((activity, index) => (
+                        <div key={index} className="flex items-center p-2 hover:bg-slate-800/50 rounded-lg transition-colors">
+                          <Avatar className="h-8 w-8 mr-2.5 bg-slate-700">
+                            <AvatarFallback className="text-[10px]">
+                              {activity.agent.split(' ').map(name => name[0]).join('')}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1 text-sm">
+                            <div className="font-medium">{activity.agent}</div>
+                            <div className="text-slate-400 mt-0.5">
+                              <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                                {activity.action}
+                              </span>
+                              {" "}{activity.property} • {activity.value}
+                            </div>
                           </div>
+                          <div className="text-slate-400 text-xs">{activity.time}</div>
                         </div>
-                        <div className="text-slate-400 text-xs">{activity.time}</div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                  <div className="pt-3">
+                  <div className="pt-3 mt-auto">
                     <Button 
                       variant="outline" 
                       size="sm" 
