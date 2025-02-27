@@ -28,6 +28,7 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { LineChartPulse } from "./LineChartPulse";
 import CommissionClaimsCard from "./CommissionClaimsCard";
+import UpcomingAppointmentsCard from "./UpcomingAppointmentsCard";
 
 const AgentDashboard = () => {
   // Animation states for progress indicators
@@ -390,28 +391,7 @@ const AgentDashboard = () => {
             
             {/* Right Column - Upcoming Appointments */}
             <div className="upcoming-appointments">
-              <div className="dashboard-card h-full">
-                <div className="p-4 pb-0">
-                  <div className="text-lg font-semibold">Upcoming Appointments</div>
-                </div>
-                <div className="p-4 pt-2 text-sm">
-                  <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
-                    <Calendar size={14} className="text-blue-400 mr-2" />
-                    <div>
-                      <div className="font-medium">Property Viewing</div>
-                      <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center border-l-2 border-green-500 pl-3">
-                    <Users size={14} className="text-green-400 mr-2" />
-                    <div>
-                      <div className="font-medium">Client Meeting</div>
-                      <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <UpcomingAppointmentsCard />
             </div>
             
             {/* Recent Activity */}
