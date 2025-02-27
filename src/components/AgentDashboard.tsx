@@ -264,57 +264,57 @@ const AgentDashboard = () => {
         
         {/* Dashboard Content */}
         <div className="p-4 grid grid-cols-12 gap-4">
-          {/* Top Stats - 2x2 Grid */}
+          {/* Top Stats - increased size for 2x2 Grid */}
           <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-4">
-            {/* Total Revenue - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Total Revenue</div>
-                <div className="text-2xl font-bold animate-fade-in">$498,250</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
+            {/* Total Revenue - Increased height and better spacing */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-2">Total Revenue</div>
+                <div className="text-3xl font-bold animate-fade-in mb-2">$498,250</div>
+                <div className="text-green-400 text-sm flex items-center">
+                  <TrendingUp size={16} className="mr-2" />
                   15% vs last year
                 </div>
               </CardContent>
             </Card>
             
-            {/* Avg Transaction - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Avg. Transaction</div>
-                <div className="text-2xl font-bold animate-fade-in">$849,600</div>
-                <div className="text-green-400 text-xs flex items-center">
-                  <TrendingUp size={12} className="mr-1" />
+            {/* Avg Transaction - Increased height and better spacing */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-2">Avg. Transaction</div>
+                <div className="text-3xl font-bold animate-fade-in mb-2">$849,600</div>
+                <div className="text-green-400 text-sm flex items-center">
+                  <TrendingUp size={16} className="mr-2" />
                   8% vs last year
                 </div>
               </CardContent>
             </Card>
             
-            {/* Total Properties - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Total Properties</div>
-                <div className="text-2xl font-bold animate-fade-in">114</div>
-                <div className="flex text-xs mt-1 gap-2">
+            {/* Total Properties - Increased height and better spacing */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-2">Total Properties</div>
+                <div className="text-3xl font-bold animate-fade-in mb-2">114</div>
+                <div className="flex text-sm mt-2 gap-3">
                   <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-blue-500 mr-1"></div>
+                    <div className="w-3 h-3 rounded-full bg-blue-500 mr-2"></div>
                     <span className="text-blue-400">37 Sold</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-2 h-2 rounded-full bg-purple-500 mr-1"></div>
+                    <div className="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
                     <span className="text-purple-400">77 Rented</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
             
-            {/* Team Ranking - Smaller Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-24">
-              <CardContent className="p-3">
-                <div className="text-slate-400 text-xs">Team Ranking</div>
-                <div className="text-2xl font-bold animate-fade-in">#2</div>
-                <div className="text-yellow-400 text-xs flex items-center">
-                  <Award size={12} className="mr-1" />
+            {/* Team Ranking - Increased height and better spacing */}
+            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
+              <CardContent className="p-5">
+                <div className="text-slate-400 text-sm mb-2">Team Ranking</div>
+                <div className="text-3xl font-bold animate-fade-in mb-2">#2</div>
+                <div className="text-yellow-400 text-sm flex items-center">
+                  <Award size={16} className="mr-2" />
                   Top 10% nationwide
                 </div>
               </CardContent>
@@ -323,17 +323,17 @@ const AgentDashboard = () => {
           
           {/* Top Right Content - Commission Claims Card */}
           <div className="col-span-12 lg:col-span-4 space-y-4">
-            <Card className="bg-slate-900 border-slate-800 shadow-md h-24">
-              <CardHeader className="p-3 pb-0">
-                <CardTitle className="text-sm font-semibold">Commission Claims</CardTitle>
+            <Card className="bg-slate-900 border-slate-800 shadow-md h-36">
+              <CardHeader className="p-4 pb-0">
+                <CardTitle className="text-base font-semibold">Commission Claims</CardTitle>
               </CardHeader>
-              <CardContent className="p-3 pt-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="text-xl font-bold animate-fade-in">
+              <CardContent className="p-4 pt-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-2xl font-bold animate-fade-in">
                     {commissionProgress}%
                   </div>
-                  <div className="text-green-400 text-xs flex items-center bg-green-500/10 px-1.5 py-0.5 rounded-full">
-                    <TrendingUp size={10} className="mr-0.5" />
+                  <div className="text-green-400 text-xs flex items-center bg-green-500/10 px-2 py-1 rounded-full">
+                    <TrendingUp size={12} className="mr-1" />
                     12%
                   </div>
                 </div>
@@ -343,24 +343,24 @@ const AgentDashboard = () => {
             </Card>
             
             {/* Upcoming Appointments Card */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md h-24">
-              <CardHeader className="p-3 pb-0">
-                <CardTitle className="text-sm font-semibold">Upcoming Appointments</CardTitle>
+            <Card className="bg-slate-900 border-slate-800 shadow-md h-36">
+              <CardHeader className="p-4 pb-0">
+                <CardTitle className="text-base font-semibold">Upcoming Appointments</CardTitle>
               </CardHeader>
-              <CardContent className="p-3 pt-1 text-xs">
-                <div className="flex items-center border-l-2 border-blue-500 pl-2 mb-1.5">
-                  <Calendar size={10} className="text-blue-400 mr-1.5" />
+              <CardContent className="p-4 pt-2 text-sm">
+                <div className="flex items-center border-l-2 border-blue-500 pl-3 mb-3">
+                  <Calendar size={14} className="text-blue-400 mr-2" />
                   <div>
                     <div className="font-medium">Property Viewing</div>
-                    <div className="text-slate-400">Today, 2:30 PM</div>
+                    <div className="text-slate-400 text-xs">Today, 2:30 PM</div>
                   </div>
                 </div>
                 
-                <div className="flex items-center border-l-2 border-green-500 pl-2">
-                  <Users size={10} className="text-green-400 mr-1.5" />
+                <div className="flex items-center border-l-2 border-green-500 pl-3">
+                  <Users size={14} className="text-green-400 mr-2" />
                   <div>
                     <div className="font-medium">Client Meeting</div>
-                    <div className="text-slate-400">Tomorrow, 10:00 AM</div>
+                    <div className="text-slate-400 text-xs">Tomorrow, 10:00 AM</div>
                   </div>
                 </div>
               </CardContent>
