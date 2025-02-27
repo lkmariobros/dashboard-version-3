@@ -267,11 +267,11 @@ const AgentDashboard = () => {
         <div className="p-4 grid grid-cols-12 gap-4">
           {/* Top Stats - Three cards in a row */}
           <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
-            {/* Total Revenue - More compact with larger margins */}
+            {/* Total Revenue - More compact with smaller height */}
             <Card className="revenue-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
-                <div className="text-slate-400 text-sm mb-1.5">Total Revenue</div>
-                <div className="text-3xl font-bold animate-fade-in mb-1.5">$498,250</div>
+              <CardContent className="text-gray-400 py-4 px-5 h-[140px] flex flex-col justify-center">
+                <div className="text-slate-400 text-sm mb-1">Total Revenue</div>
+                <div className="text-3xl font-bold animate-fade-in mb-1">$498,250</div>
                 <div className="text-green-400 text-sm flex items-center">
                   <TrendingUp size={14} className="mr-1.5" />
                   15% vs last year
@@ -279,11 +279,11 @@ const AgentDashboard = () => {
               </CardContent>
             </Card>
             
-            {/* Avg Transaction - More compact with larger margins */}
+            {/* Avg Transaction - More compact with smaller height */}
             <Card className="transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
-                <div className="text-slate-400 text-sm mb-1.5">Avg. Transaction</div>
-                <div className="text-3xl font-bold animate-fade-in mb-1.5">$849,600</div>
+              <CardContent className="text-gray-400 py-4 px-5 h-[140px] flex flex-col justify-center">
+                <div className="text-slate-400 text-sm mb-1">Avg. Transaction</div>
+                <div className="text-3xl font-bold animate-fade-in mb-1">$849,600</div>
                 <div className="text-green-400 text-sm flex items-center">
                   <TrendingUp size={14} className="mr-1.5" />
                   8% vs last year
@@ -291,12 +291,12 @@ const AgentDashboard = () => {
               </CardContent>
             </Card>
             
-            {/* Total Properties - More compact with larger margins */}
+            {/* Total Properties - More compact with smaller height */}
             <Card className="properties-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
-                <div className="text-slate-400 text-sm mb-1.5">Total Properties</div>
-                <div className="text-3xl font-bold animate-fade-in mb-1.5">114</div>
-                <div className="flex text-sm mt-1.5 gap-3">
+              <CardContent className="text-gray-400 py-4 px-5 h-[140px] flex flex-col justify-center">
+                <div className="text-slate-400 text-sm mb-1">Total Properties</div>
+                <div className="text-3xl font-bold animate-fade-in mb-1">114</div>
+                <div className="flex text-sm mt-1 gap-3">
                   <div className="flex items-center">
                     <div className="w-2.5 h-2.5 rounded-full bg-blue-500 mr-1.5"></div>
                     <span className="text-blue-400">37 Sold</span>
