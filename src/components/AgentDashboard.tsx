@@ -253,6 +253,7 @@ const AgentDashboard = () => {
         )}
         
         <div className="p-4 grid grid-cols-12 gap-2">
+          {/* Top Row - First 3 Metric Cards */}
           <div className="col-span-3 bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
             <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
               <div className="text-slate-400 text-xs">Total Revenue</div>
@@ -292,11 +293,12 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Commission Claims Card */}
+          {/* Right Column - Commission Claims Card */}
           <div className="col-span-4 flex flex-col gap-2">
+            {/* Commission Claims Card */}
             <CommissionClaimsCard progress={commissionProgress} />
             
-            {/* Sales Transaction Card - Moved directly under Commission Claims */}
+            {/* Sales Transaction Card - Directly under Commission Claims */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <div className="p-4 pb-0">
                 <div className="flex justify-between items-center">
@@ -324,7 +326,7 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Upcoming Appointments Card - Moved below Sales Transaction */}
+            {/* Upcoming Appointments Card - Below Sales Transaction */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl shadow-md">
               <div className="p-4 pb-0">
                 <div className="text-lg font-semibold">Upcoming Appointments</div>
@@ -349,7 +351,8 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+          {/* Yearly Sales Transactions - Full Width Chart */}
+          <div className="col-span-8 row-start-2 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
             <div className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <div className="text-lg font-semibold">Yearly Sales Transactions</div>
@@ -375,7 +378,8 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+          {/* Recent Activity - Bottom Card */}
+          <div className="col-span-12 row-start-3 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
             <div className="p-4 pb-2">
               <div className="flex justify-between items-center">
                 <div className="text-base font-semibold">Recent Activity</div>
