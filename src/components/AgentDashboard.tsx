@@ -124,7 +124,7 @@ const AgentDashboard = () => {
       segments.push(
         <div
           key={i}
-          className={`h-1.5 w-full rounded-full transition-all duration-300 ${
+          className={`h-1 w-full rounded-full transition-all duration-300 ${
             i < filledSegments ? 'bg-blue-500' : 'bg-slate-700'
           }`}
           style={{
@@ -361,25 +361,25 @@ const AgentDashboard = () => {
             
             {/* Sales Transaction - Compact metric card with reduced height */}
             <div className="sales-transaction">
-              <div className="dashboard-card p-3">
-                <div className="mb-2">
+              <div className="dashboard-card p-2">
+                <div className="mb-1">
                   <div className="flex justify-between items-center">
-                    <div className="text-base font-semibold">Sales Transaction</div>
-                    <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
-                      <MoreHorizontal className="h-4 w-4" />
+                    <div className="text-sm font-semibold">Sales Transaction</div>
+                    <Button variant="ghost" size="icon" className="h-5 w-5 text-slate-400">
+                      <MoreHorizontal className="h-3 w-3" />
                     </Button>
                   </div>
                   <p className="text-slate-400 text-xs">
                     On track to finish early
                   </p>
                 </div>
-                <div className="pt-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="text-xl font-bold animate-fade-in">
+                <div>
+                  <div className="flex items-center gap-1">
+                    <div className="text-lg font-bold animate-fade-in">
                       {salesProgress}%
                     </div>
-                    <div className="text-xs bg-blue-500/10 px-2 py-0.5 rounded-full text-blue-400 flex items-center">
-                      <TrendingUp className="h-3 w-3 mr-1" />
+                    <div className="text-xs bg-blue-500/10 px-1.5 py-0.5 rounded-full text-blue-400 flex items-center">
+                      <TrendingUp className="h-2.5 w-2.5 mr-0.5" />
                       30%
                     </div>
                   </div>
