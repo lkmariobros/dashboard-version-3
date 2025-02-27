@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   MoreHorizontal, 
@@ -291,7 +292,8 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          <div className="col-span-4">
+          {/* Commission Claims Card - Now taller with row span */}
+          <div className="col-span-4 row-span-2">
             <CommissionClaimsCard progress={commissionProgress} />
           </div>
           

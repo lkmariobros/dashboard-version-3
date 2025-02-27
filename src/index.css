@@ -87,7 +87,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  height: 100px; /* Set to match other cards */
+  min-height: 235px; /* Taller than other cards */
 }
 
 .commission-claims-card::before {
@@ -118,4 +118,5 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
