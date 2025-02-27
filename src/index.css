@@ -295,6 +295,11 @@
   height: 100%;
 }
 
+/* Add custom height for the Upcoming Appointments specifically to fill the gap */
+.upcoming-appointments .upcoming-appointments-card {
+  min-height: 480px; /* Increased height to fill the vertical gap shown in the image */
+}
+
 .recent-activity { 
   grid-area: recent-activity;
   height: 100%;
