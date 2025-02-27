@@ -264,8 +264,8 @@ const AgentDashboard = () => {
         
         {/* Dashboard Content */}
         <div className="p-4 grid grid-cols-12 gap-4">
-          {/* Top Stats - increased size for 2x2 Grid */}
-          <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-4">
+          {/* Top Stats - increased size for 2x2 Grid - removed Team Ranking */}
+          <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
             {/* Total Revenue - Increased height and better spacing */}
             <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
               <CardContent className="p-5">
@@ -304,18 +304,6 @@ const AgentDashboard = () => {
                     <div className="w-3 h-3 rounded-full bg-purple-500 mr-2"></div>
                     <span className="text-purple-400">77 Rented</span>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Team Ranking - Increased height and better spacing */}
-            <Card className="bg-slate-900 border-slate-800 shadow-md overflow-hidden h-36">
-              <CardContent className="p-5">
-                <div className="text-slate-400 text-sm mb-2">Team Ranking</div>
-                <div className="text-3xl font-bold animate-fade-in mb-2">#2</div>
-                <div className="text-yellow-400 text-sm flex items-center">
-                  <Award size={16} className="mr-2" />
-                  Top 10% nationwide
                 </div>
               </CardContent>
             </Card>
