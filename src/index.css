@@ -245,7 +245,7 @@
 .grid-dashboard {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto auto 350px;
+  grid-template-rows: auto auto auto 600px; /* Changed from 350px to 600px */
   grid-template-areas:
     "welcome welcome welcome commission-claims"
     "metrics metrics metrics commission-claims"
@@ -287,7 +287,7 @@
 
 .sales-transaction { 
   grid-area: sales-transaction;
-  max-height: 130px; /* Reduced from 160px to 130px */
+  max-height: 130px;
 }
 
 .upcoming-appointments { 
