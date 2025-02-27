@@ -251,7 +251,7 @@
     "metrics metrics metrics commission-claims"
     "yearly-sales yearly-sales yearly-sales sales-transaction"
     "yearly-sales yearly-sales yearly-sales upcoming-appointments"
-    "recent-activity recent-activity recent-activity recent-activity";
+    "recent-activity recent-activity recent-activity upcoming-appointments";
   gap: 20px;
   padding: 4px;
 }
@@ -293,13 +293,13 @@
 
 .upcoming-appointments { 
   grid-area: upcoming-appointments;
-  height: auto;
+  height: 100%;
   margin-top: -10px; /* Add negative margin to move it upward closer to sales-transaction */
 }
 
 /* Add custom height for the Upcoming Appointments specifically to fill the gap */
 .upcoming-appointments .upcoming-appointments-card {
-  min-height: 330px; /* Increased height to extend downward */
+  min-height: 480px; /* Increased height to extend downward across two rows */
 }
 
 .recent-activity { 
