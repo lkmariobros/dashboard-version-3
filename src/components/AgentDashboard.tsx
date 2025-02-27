@@ -11,7 +11,10 @@ import {
   Bell, 
   Menu, 
   User, 
-  Award
+  Award,
+  ChevronDown,
+  ChevronUp,
+  X
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,6 +26,7 @@ const AgentDashboard = () => {
   // Animation states for progress indicators
   const [salesProgress, setSalesProgress] = useState(0);
   const [commissionProgress, setCommissionProgress] = useState(0);
+  const [showMoreActivity, setShowMoreActivity] = useState(false);
   
   // Sample data
   const salesTarget = 66;
@@ -35,7 +39,20 @@ const AgentDashboard = () => {
   
   const recentActivity = [
     { agent: "Sarah Lee", action: "Sold", property: "Parkview Heights", value: "$1.2M", time: "2h" },
-    { agent: "James Wong", action: "Rented", property: "Riverside Res.", value: "$3.6K", time: "1d" }
+    { agent: "James Wong", action: "Rented", property: "Riverside Res.", value: "$3.6K", time: "1d" },
+    { agent: "Michael Chen", action: "Sold", property: "Lakeside Manor", value: "$2.5M", time: "2d" },
+    { agent: "Aisha Patel", action: "Rented", property: "Urban Lofts", value: "$5.2K", time: "2d" },
+    { agent: "David Kim", action: "Sold", property: "Sunset Hills", value: "$1.8M", time: "3d" },
+  ];
+  
+  const previousActivity = [
+    { agent: "Olivia Martinez", action: "Sold", property: "Mountainview Estate", value: "$3.1M", time: "1w" },
+    { agent: "Ethan Roberts", action: "Rented", property: "City Center Apts", value: "$4.5K", time: "1w" },
+    { agent: "Sophia Williams", action: "Sold", property: "Harbor Views", value: "$2.7M", time: "1w" },
+    { agent: "Noah Johnson", action: "Rented", property: "Green Valley Homes", value: "$3.8K", time: "2w" },
+    { agent: "Emma Brown", action: "Sold", property: "Golden Gate Condos", value: "$1.5M", time: "2w" },
+    { agent: "Liam Garcia", action: "Rented", property: "Sky Towers", value: "$6.9K", time: "3w" },
+    { agent: "Ava Wilson", action: "Sold", property: "Silver Lake Estate", value: "$4.3M", time: "3w" },
   ];
   
   // Animate progress bars on component mount
@@ -110,6 +127,52 @@ const AgentDashboard = () => {
         </div>
       </header>
       
+      {/* Activity Modal */}
+      {showMoreActivity && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gray-900 rounded-lg shadow-lg w-full max-w-2xl">
+            <div className="flex justify-between items-center p-4 border-b border-gray-800">
+              <h3 className="text-lg font-medium">All Recent Activity</h3>
+              <Button variant="ghost" size="icon" onClick={() => setShowMoreActivity(false)}>
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="p-4 max-h-[70vh] overflow-y-auto">
+              <div className="space-y-3">
+                {[...recentActivity, ...previousActivity].map((activity, index) => (
+                  <div key={index} className="flex items-center py-2 border-b border-gray-800">
+                    <Avatar className="h-8 w-8 mr-3 bg-gray-700">
+                      <AvatarFallback>
+                        {activity.agent.split(' ').map(name => name[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="font-medium">{activity.agent}</div>
+                      <div className="text-gray-400">
+                        <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
+                          {activity.action}
+                        </span>
+                        {" "}{activity.property} • {activity.value}
+                      </div>
+                    </div>
+                    <div className="text-gray-400 text-sm">{activity.time}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="p-4 border-t border-gray-800">
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={() => setShowMoreActivity(false)}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Main Content */}
       <div className="p-3 md:p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 auto-rows-min">
         
@@ -176,17 +239,17 @@ const AgentDashboard = () => {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-3 max-h-[calc(100%-5rem)] overflow-y-auto">
             {recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center border-b border-slate-800 pb-1">
-                <Avatar className="h-6 w-6 mr-2 bg-blue-500">
+              <div key={index} className="flex items-center border-b border-slate-800 pb-2">
+                <Avatar className="h-8 w-8 mr-3 bg-slate-700">
                   <AvatarFallback className="text-[10px]">
-                    <Users size={12} />
+                    {activity.agent.split(' ').map(name => name[0]).join('')}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 text-xs">
                   <div className="font-medium">{activity.agent}</div>
-                  <div className="text-slate-400">
+                  <div className="text-slate-400 mt-0.5">
                     <span className={activity.action === "Sold" ? "text-green-400" : "text-blue-400"}>
                       {activity.action}
                     </span>
@@ -196,6 +259,17 @@ const AgentDashboard = () => {
                 <div className="text-slate-400 text-xs">{activity.time}</div>
               </div>
             ))}
+            <div className="pt-2">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="w-full text-xs border border-slate-800 rounded-md hover:bg-slate-800" 
+                onClick={() => setShowMoreActivity(true)}
+              >
+                Show more
+                <ChevronDown size={14} className="ml-1" />
+              </Button>
+            </div>
           </CardContent>
         </Card>
         
