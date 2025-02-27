@@ -132,8 +132,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  height: 100%;
-  min-height: 280px; /* Added minimum height */
+  height: 400px !important; /* Force a fixed height */
   display: flex;
   flex-direction: column;
 }
@@ -278,7 +277,8 @@
 }
 
 .yearly-sales { 
-  grid-area: yearly-sales; 
+  grid-area: yearly-sales;
+  height: auto !important; /* Force auto height */
 }
 
 .commission-claims { 
@@ -292,7 +292,7 @@
 
 .upcoming-appointments { 
   grid-area: upcoming-appointments; 
-  min-height: 280px; /* Added minimum height to grid area */
+  height: 400px !important; /* Force fixed height */
 }
 
 .recent-activity { 

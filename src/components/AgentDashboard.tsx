@@ -330,9 +330,9 @@ const AgentDashboard = () => {
               <CommissionClaimsCard progress={commissionProgress} />
             </div>
             
-            {/* Yearly Sales Transactions */}
+            {/* Yearly Sales Transactions - Adding a height constraint here to make it independent */}
             <div className="yearly-sales">
-              <div className="dashboard-card h-full">
+              <div className="dashboard-card" style={{ height: "auto" }}>
                 <div className="p-4 pb-0">
                   <div className="flex justify-between items-center">
                     <div className="text-lg font-semibold">Yearly Sales Transactions</div>
@@ -390,7 +390,8 @@ const AgentDashboard = () => {
             </div>
             
             {/* Right Column - Upcoming Appointments */}
-            <div className="upcoming-appointments" style={{ height: "auto" }}>
+            <div className="upcoming-appointments">
+              {/* No specific height style here - using the component's internal setting */}
               <UpcomingAppointmentsCard />
             </div>
             
