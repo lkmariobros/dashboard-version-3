@@ -359,22 +359,22 @@ const AgentDashboard = () => {
               </div>
             </div>
             
-            {/* Sales Transaction - Compact metric card */}
+            {/* Sales Transaction - Compact metric card with reduced height */}
             <div className="sales-transaction">
-              <div className="dashboard-card">
-                <div className="p-4 pb-0">
+              <div className="dashboard-card p-3">
+                <div className="mb-2">
                   <div className="flex justify-between items-center">
                     <div className="text-base font-semibold">Sales Transaction</div>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400">
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400">
                       <MoreHorizontal className="h-4 w-4" />
                     </Button>
                   </div>
-                  <p className="text-slate-400 text-sm">
+                  <p className="text-slate-400 text-xs">
                     On track to finish early
                   </p>
                 </div>
-                <div className="p-4 pt-2">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="pt-1">
+                  <div className="flex items-center gap-2 mb-1">
                     <div className="text-xl font-bold animate-fade-in">
                       {salesProgress}%
                     </div>
