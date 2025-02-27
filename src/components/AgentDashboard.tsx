@@ -253,7 +253,7 @@ const AgentDashboard = () => {
         )}
         
         <div className="p-4 grid grid-cols-12 gap-2">
-          {/* Top Row - First 3 Metric Cards */}
+          {/* Top Row - Metric Cards and Commission Claims */}
           <div className="col-span-3 bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden h-[100px]">
             <div className="text-gray-400 px-4 py-3 flex flex-col justify-center h-full">
               <div className="text-slate-400 text-xs">Total Revenue</div>
@@ -351,8 +351,8 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Yearly Sales Transactions - Full Width Chart */}
-          <div className="col-span-8 row-start-2 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+          {/* Yearly Sales Transactions Chart - Second Row */}
+          <div className="col-span-8 bg-slate-900 border border-slate-800 rounded-xl shadow-md mt-2">
             <div className="p-4 pb-0">
               <div className="flex justify-between items-center">
                 <div className="text-lg font-semibold">Yearly Sales Transactions</div>
@@ -378,8 +378,8 @@ const AgentDashboard = () => {
             </div>
           </div>
           
-          {/* Recent Activity - Bottom Card */}
-          <div className="col-span-12 row-start-3 bg-slate-900 border border-slate-800 rounded-xl shadow-md">
+          {/* Recent Activity - Bottom Row */}
+          <div className="col-span-12 bg-slate-900 border border-slate-800 rounded-xl shadow-md mt-2">
             <div className="p-4 pb-2">
               <div className="flex justify-between items-center">
                 <div className="text-base font-semibold">Recent Activity</div>
