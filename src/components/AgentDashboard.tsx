@@ -269,7 +269,7 @@ const AgentDashboard = () => {
           <div className="col-span-12 lg:col-span-8 grid grid-cols-3 gap-4">
             {/* Total Revenue - More compact with larger margins */}
             <Card className="revenue-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="p-4">
+              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
                 <div className="text-slate-400 text-sm mb-1.5">Total Revenue</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">$498,250</div>
                 <div className="text-green-400 text-sm flex items-center">
@@ -281,7 +281,7 @@ const AgentDashboard = () => {
             
             {/* Avg Transaction - More compact with larger margins */}
             <Card className="transaction-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="p-4">
+              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
                 <div className="text-slate-400 text-sm mb-1.5">Avg. Transaction</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">$849,600</div>
                 <div className="text-green-400 text-sm flex items-center">
@@ -293,7 +293,7 @@ const AgentDashboard = () => {
             
             {/* Total Properties - More compact with larger margins */}
             <Card className="properties-card bg-slate-900 border border-slate-800 rounded-xl shadow-md overflow-hidden">
-              <CardContent className="p-4">
+              <CardContent className="text-gray-400 py-[4px] my-[65px] mx-[27px] px-[5px] rounded-sm">
                 <div className="text-slate-400 text-sm mb-1.5">Total Properties</div>
                 <div className="text-3xl font-bold animate-fade-in mb-1.5">114</div>
                 <div className="flex text-sm mt-1.5 gap-3">
